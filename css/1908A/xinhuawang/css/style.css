@@ -1,0 +1,201 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+	list-style-position: inside;
+	text-decoration: none;
+}
+
+.box {
+	width: 1000px;
+	height: 95px;
+	margin: 0 auto;
+}
+
+.box .img-1 {
+	float: left;
+	padding: 10px 7px;
+}
+
+.box .span-1 {
+	float: left;
+	font-size: 22px;
+	font-weight: bold;
+	font-style: italic;
+	padding-top: 17px;
+}
+
+.box .ul-1 {
+	clear: left;
+	list-style: none;
+	width: 1000px;
+	height: 45px;
+	background: #004101;
+	margin-bottom: 16px;
+}
+
+.box .ul-1 li {
+	float: left;
+	width: 55px;
+	font-size: 14px;
+	line-height: 45px;
+	text-align: center;
+}
+
+.box .ul-1 .li-1 {
+	width: 83px;
+}
+
+.box .ul-1 .li-2 {
+	width: 95px;
+}
+
+.box .ul-1 a {
+	color: white;
+	padding: 0 12px 0 12px;
+	border-right: #2a6127 solid 1px;
+}
+
+.box .ul-1 .a-1 {
+	border-right: none;
+}
+
+.box .ul-1 li:hover a {
+	color: greenyellow;
+}
+
+
+/*图文*/
+
+.tw {
+	height: 360px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.tw img {
+	float: left;
+	width: 640px;
+	height: 360px;
+	margin-right: 20px;
+}
+
+.tw .tw-right {
+	float: left;
+}
+
+.tw .tw-right ul {
+	list-style: none;
+}
+
+.tw .tw-right h2 {
+	font-size: 17px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+}
+
+.tw .tw-right li {
+	font-size: 13px;
+	height: 25px;
+	line-height: 25px;
+}
+
+.tw .tw-right .li-3 {
+	font-size: 14px;
+	color: #fa3000;
+}
+
+.tw .tw-right hr {
+	margin: 17px 0;
+	border: dashed 1px #c3c3c3;
+}
+
+
+/*bottom*/
+
+.bottom {
+	width: 100%;
+	height: 606px;
+}
+
+.bottom .content-left {
+	float: left;
+	width: 346px;
+	height: 303px;
+	margin-right: 20px;
+}
+
+.bottom h2 {
+	font-size: 20px;
+	line-height: 36px;
+	height: 36px;
+	border-bottom: #c4c4c4 solid 3px;
+	padding-left: 2px;
+	margin-bottom: 20px;
+}
+
+.bottom .content-left img {
+	float: left;
+	margin-right: 20px;
+}
+
+.bottom .content-left p {
+	float: left;
+	width: 220px;
+	height: 75px;
+	font-size: 12px;
+	line-height: 20px;
+	padding-top: 5px;
+	margin-bottom: 26px;
+	/*border: #004101 solid 1px;*/
+}
+
+.bottom .content-left hr {
+	border: dashed 2px ##c7c7c7;
+}
+
+.bottom ul {
+	list-style: square;
+}
+
+.bottom li {
+	font-size: 12px;
+	color: #5e8d19;
+	line-height: 25px;
+	letter-spacing: 1px;
+}
+
+.bottom span {
+	color: #000203;
+}
+
+.bottom .span-2 {
+	color: #fe0500;
+}
+
+
+/*内容中部0*/
+
+.bottom .content-center {
+	float: left;
+	width: 360px;
+	height: 303px;
+	margin-right: 20px;
+}
+
+.bottom .content-right {
+	float: left;
+	width: 254px;
+	height: 303px;
+}
+
+.bottom .content-left .span-3 {
+	float: left;
+	font-weight: bold;
+	font-size: 15px;
+	padding-bottom: 5px;
+	margin-top: -4px;
+	width: 225px;
+	height: 20px;
+}

@@ -1,0 +1,331 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+.box {
+	width: 1140px;
+	height: 1245px;
+	margin: 0 auto;
+}
+
+.top {
+	height: 86px;
+	width: 100%;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.top .img-1 {
+	float: left;
+	padding: 16px 0 0 32px;
+}
+
+.top h1 {
+	float: left;
+	font-size: 41px;
+	background: #10416c;
+	color: white;
+	width: 140px;
+	height: 50px;
+	margin-top: 16px;
+	text-align: center;
+	line-height: 50px;
+	letter-spacing: 5px;
+	font-weight: 500;
+}
+
+.top .img-2 {
+	float: right;
+	vertical-align: middle;
+	margin: 26px -208px 0 0;
+}
+
+.top input {
+	float: right;
+	width: 210px;
+	height: 32px;
+	font-size: 12px;
+	margin: 24px 177px 0 0;
+}
+
+.top .span-1 {
+	float: right;
+	font-size: 9px;
+	color: #7e7e7e;
+	margin: 35px 20px 0 0;
+}
+
+.top .span-2 {
+	float: right;
+	font-size: 11px;
+	color: #20557f;
+	margin: 35px 20px 0 0;
+}
+
+.top .img-3 {
+	float: right;
+	margin: 34px 5px 0 0;
+}
+
+
+/*left*/
+
+.left {
+	float: left;
+	width: 895px;
+	height: 1155px;
+	margin-left: 53px;
+}
+
+.nav ul {
+	width: 100%;
+	height: 53px;
+}
+
+.nav li {
+	float: left;
+	height: 30px;
+	width: 88px;
+	text-align: center;
+	border-right: #cccccc solid 1px;
+	margin: 16px 0;
+}
+
+.nav a {
+	color: black;
+	font-size: 14px;
+}
+
+.left {
+	float: left;
+}
+
+.left-left {
+	float: left;
+	width: 665px;
+	height: 87px;
+	text-align: center;
+}
+
+.left-left span {
+	font-size: 12px;
+	color: #0043a4;
+}
+
+.left-left h1 {
+	margin-bottom: 5px;
+}
+
+.img-4 {
+	float: right;
+}
+
+.content-left {
+	float: left;
+	width: 550px;
+	height: 1000px;
+}
+
+.content-left dl {
+	clear: both;
+	height: 365px;
+	border-bottom: #cbcbcb solid 1px;
+}
+
+.content-left dd {
+	text-align: center;
+	font-size: 24px;
+	height: 48px;
+	line-height: 48px;
+}
+
+.content-right {
+	float: right;
+	width: 317px;
+	height: 1000px;
+}
+
+.content-right h2 {
+	font-size: 20px;
+	font-weight: 500;
+	height: 36px;
+	line-height: 36px;
+}
+
+.content-right li {
+	height: 30px;
+}
+
+.content-right a {
+	font-size: 13px;
+	color: black;
+}
+
+.tw {
+	height: 140px;
+	border-bottom: #CBCBCB solid 1px;
+	padding-top: 18px;
+}
+
+.wz {
+	width: 353px;
+	height: 122px;
+	float: left;
+	padding-right: 15px;
+}
+
+.wz h3 {
+	font-size: 18px;
+	font-weight: 500;
+	margin-bottom: 10px;
+}
+
+.wz p {
+	font-size: 12px;
+}
+
+.wz h5 {
+	background: #0e3e66;
+	color: white;
+	width: 32px;
+	height: 22px;
+	font-size: 11px;
+	text-align: center;
+	line-height: 22px;
+	margin-top: 15px;
+}
+
+.wz .h5-1 {
+	width: 80px;
+}
+
+.ul-1 {
+	width: 316px;
+	height: 33px;
+	background: #f6f6f6;
+	border-bottom: #CBCBCB solid 1px;
+	margin-bottom: 2px;
+	margin-top: 14px;
+}
+
+.ul-1 li {
+	float: left;
+	width: 78px;
+	height: 33px;
+	line-height: 33px;
+	text-align: center;
+	border-right: #CBCBCB solid 1px;
+}
+
+.ul-1 a {
+	font-size: 12px;
+	color: black;
+}
+
+.ul-1 li:hover {
+	background: white;
+	border-top: #023f6e solid 2px;
+}
+
+.table {
+	width: 316px;
+	height: 207px;
+	background: #ebebeb;
+}
+
+.table table {
+	float: left;
+	width: 266px;
+	height: 104px;
+	background: white;
+}
+
+.table td {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 13px;
+}
+
+.table span {
+	clear: both;
+	float: left;
+	padding: 40px 0 0 12px;
+	font-size: 13px;
+}
+
+.zl {
+	width: 100%;
+	height: 265px;
+	border-top: #cdcdcd solid 1px;
+	margin-top: 23px;
+}
+
+.zl h4 {
+	width: 33px;
+	border-top: #073f6e 3px solid;
+	font-size: 15px;
+	height: 27px;
+	line-height: 27px;
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+
+.zl dl {
+	height: 115px;
+	border-bottom: #cbcbcb solid 1px;
+}
+
+.zl dt {
+	float: left;
+}
+
+.zl dd {
+	float: right;
+	width: 227px;
+	height: 120px;
+}
+
+.zl h2 {
+	font-size: 17px;
+	height: 40px;
+	line-height: 20px;
+	margin: 8px 0;
+}
+
+.zl p {
+	font-size: 12px;
+}
+
+.zl a {
+	color: #0000ed;
+	font-size: 11px;
+}
+
+.right {
+	float: right;
+	margin: 460px 23px 0 0;
+}
+
+.right .weixin {
+	width: 102px;
+	height: 138px;
+	background: #f9f9f9;
+	text-align: center;
+	margin-bottom: 23px;
+}
+
+.right p {
+	font-size: 12px;
+	height: 22px;
+	line-height: 22px;
+}
+
+.right .weixin .kb{
+	height: 4px;
+	background: white;
+	margin-bottom: 4px;
+}
+

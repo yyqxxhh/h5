@@ -1,0 +1,386 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"> <title>测试题</title><style>
+*{ margin:0; padding:0;}img{ border:0;}
+body{ font-family:微软雅黑; font-size:14px; color:#333; padding-left:10px;}
+li{ list-style:none;}
+input{ vertical-align:middle;}
+.title{ line-height:60px; height:60px; color:#000;}
+.item h3{ line-height:40px; font-size:16px; font-weight:normal;}
+.item ul{ line-height:30px; padding-left:26px; font-size:13px;}
+.item ul input{ margin:0 10px 0 0;}
+.submit{ display:block; position:fixed; right:50px; top:50; margin-top:170px; width:100px; height:30px; font-family:微软雅黑; cursor:pointer; font-size:16px;}
+.hz{width:140px;line-height:30px; height:150px; position:fixed;right:10px; top:50;margin-top:15px;color:#cd0000; font-size:16px;}.hz input{border:0;}
+</style><script type="text/javascript" language="javascript"> 
+ 	var allerrornum = 0;
+ 	var totalnum = 0;  
+    var postData = ''; 
+ 	function stop(){ 
+ 		return false; 
+ 	} 
+ 	document.oncontextmenu=stop; 
+ 	function createXmlHttp() { 
+ 	  var xmlHttp = null; 
+ 		 
+ 	  try { 
+ 		//Firefox, Opera 8.0+, Safari 
+ 		xmlHttp = new XMLHttpRequest(); 
+ 	  } catch (e) { 
+ 		//IE 
+ 		try { 
+ 		  xmlHttp = new ActiveXObject('Msxml2.XMLHTTP'); 
+ 		} catch (e) { 
+ 		  xmlHttp = new ActiveXObject('Microsoft.XMLHTTP'); 
+ 		} 
+ 	  } 
+ 		 
+ 	  return xmlHttp; 
+ 	} 
+ 	   
+ 	function submitForm() { 
+ 	  var xmlHttp = createXmlHttp(); 
+ 	  if(!xmlHttp) { 
+ 		alert('您的浏览器不支持AJAX！'); 
+ 		return 0; 
+ 	  } 
+ 	    
+ 	  var url = 'score.cgi'; 
+ 	    
+ 	  xmlHttp.open('POST', url, true); 
+ 	  xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+ 	  xmlHttp.onreadystatechange = function() { 
+ 		if(xmlHttp.readyState == 4 && xmlHttp.status == 200) { 
+ 		  if(xmlHttp.responseText == '1') { 
+ 			alert('post successed'); 
+ 		  } 
+ 		} 
+ 	  } 
+ 	  xmlHttp.send(postData); 
+ 	} 
+ 	function init(){ 
+ 		var spanid; 
+		forms = document.getElementById('form1');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form2');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form3');  totalnum+=forms.length/2; 
+ 		spanid = document.getElementById('totalnum');
+ 		spanid.innerHTML = totalnum; 
+ 		spanid = document.getElementById('studentname'); 
+ 		spanid.innerHTML = decodeURI('%E7%BD%91%E9%A1%B5'); 
+ 	} 
+ 	function commit() {  
+ 		var i;  
+ 		var rid;  
+ 		var radios; 
+ 		var checkrightflag;
+ 		var forms = document.getElementById('form1');  
+ 		var errornum = forms.length/4;
+ 		allerrornum = 0;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					rid.style.color = 'black';  
+ 					errornum--;
+ 				}
+ 			}  
+ 		}  
+ 		allerrornum = errornum;
+ 		
+ 		forms = document.getElementById('form2');  
+ 		errornum = forms.length/4;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i * 4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 0;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if( (radios[x].value == 'true' && radios[x].checked == false) || (radios[x].value == 'false' && radios[x].checked == true) ){  
+ 					checkrightflag = 1;
+ 				}
+ 			}  
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		allerrornum = allerrornum + errornum;
+ 
+ 		forms = document.getElementById('form3');  
+ 		errornum = forms.length/2;
+ 		for (i=0; i<forms.length/2; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*2].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 1;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					checkrightflag = 0;
+ 				}
+ 			} 
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		rid = document.getElementById('errornum');
+ 		allerrornum = allerrornum + errornum;
+ 		rid.innerHTML = allerrornum;
+ 		rid = document.getElementById('errorrate');
+ 		var errrate = 100.0 - (allerrornum * 1.0) / totalnum * 100; 
+		rid.innerHTML = errrate.toFixed(2); 
+ 		document.getElementById('ierrorrate').value = errrate.toFixed(2); 
+ 	  postData = 'studentname=%E7%BD%91%E9%A1%B5'; 
+ 	  postData += '&errorrate='; 
+ 	  postData += errrate.toFixed(2); 
+ 	  postData += '&examunit=5'; 
+ 	  document.getElementById('commitButton').disabled=true; 
+     submitForm();	}   
+ 	window.onload=init;</script></head> 
+ 
+ 
+ <body><noscript><iframe src='*.htm'></noscript><form id="form1" action="" method=""><h2 class="title">单选题:</h2><div class="item"><h3 id="textradio1">1、  设置表单提交方法的属性是	
+</h3><ul><li id="radio10"><input name="radio1" value="false" type="radio">A name	
+</li><li id="radio11"><input name="radio1" value="true" type="radio">B method 	
+</li><li id="radio12"><input name="radio1" value="false" type="radio">C top	
+</li><li id="radio13"><input name="radio1" value="false" type="radio">D value
+</li></ul></div><div class="item"><h3 id="textradio2">2、  以下是复选框的类型的是： 	
+</h3><ul><li id="radio20"><input name="radio2" value="false" type="radio">A file	
+</li><li id="radio21"><input name="radio2" value="false" type="radio">B image	
+</li><li id="radio22"><input name="radio2" value="true" type="radio">C checkbox	
+</li><li id="radio23"><input name="radio2" value="false" type="radio">D radio
+</li></ul></div><div class="item"><h3 id="textradio3">3、  为了标识一个表单应该使用的HTML标记是
+</h3><ul><li id="radio30"><input name="radio3" value="true" type="radio">A ＜form＞ ＜/form＞	
+</li><li id="radio31"><input name="radio3" value="false" type="radio">B ＜table＞ ＜/table＞	
+</li><li id="radio32"><input name="radio3" value="false" type="radio">C ＜tr＞ ＜/tr＞	
+</li><li id="radio33"><input name="radio3" value="false" type="radio">D ＜input＞
+</li></ul></div><div class="item"><h3 id="textradio4">4、  以下是文件域类型的标签是 	
+</h3><ul><li id="radio40"><input name="radio4" value="false" type="radio">A text	
+</li><li id="radio41"><input name="radio4" value="false" type="radio">B password	
+</li><li id="radio42"><input name="radio4" value="false" type="radio">C radio	
+</li><li id="radio43"><input name="radio4" value="true" type="radio">D file
+</li></ul></div><div class="item"><h3 id="textradio5">5、  以下哪一个不是html5新增加的表单组件	
+</h3><ul><li id="radio50"><input name="radio5" value="false" type="radio">A email	
+</li><li id="radio51"><input name="radio5" value="true" type="radio">B hidden	
+</li><li id="radio52"><input name="radio5" value="false" type="radio">C tel	
+</li><li id="radio53"><input name="radio5" value="false" type="radio">D search
+</li></ul></div><div class="item"><h3 id="textradio6">6、  option的默认选中状态是： 	
+</h3><ul><li id="radio60"><input name="radio6" value="false" type="radio">A checked	
+</li><li id="radio61"><input name="radio6" value="true" type="radio">B selected	
+</li><li id="radio62"><input name="radio6" value="false" type="radio">C disabled	
+</li><li id="radio63"><input name="radio6" value="false" type="radio">D enables
+</li></ul></div><div class="item"><h3 id="textradio7">7、  多行文本域的标签是：
+</h3><ul><li id="radio70"><input name="radio7" value="true" type="radio">A textarea	
+</li><li id="radio71"><input name="radio7" value="false" type="radio">B text	
+</li><li id="radio72"><input name="radio7" value="false" type="radio">C txt	
+</li><li id="radio73"><input name="radio7" value="false" type="radio">D number
+</li></ul></div><div class="item"><h3 id="textradio8">8、  "单选框中表示选中的标签属性是
+</h3><ul><li id="radio80"><input name="radio8" value="true" type="radio">A checked	
+</li><li id="radio81"><input name="radio8" value="false" type="radio">B selected 	
+</li><li id="radio82"><input name="radio8" value="false" type="radio">C checkbox	
+</li><li id="radio83"><input name="radio8" value="false" type="radio">D radio
+</li></ul></div><div class="item"><h3 id="textradio9">9、  以下是单行文本框的类型是：	
+</h3><ul><li id="radio90"><input name="radio9" value="true" type="radio">A text	
+</li><li id="radio91"><input name="radio9" value="false" type="radio">B password	
+</li><li id="radio92"><input name="radio9" value="false" type="radio">C chekbox	
+</li><li id="radio93"><input name="radio9" value="false" type="radio">D radio
+</li></ul></div><div class="item"><h3 id="textradio10">10、  以下专门用来定义电话号码的表单组件是
+</h3><ul><li id="radio100"><input name="radio10" value="false" type="radio">A text	
+</li><li id="radio101"><input name="radio10" value="false" type="radio">B url	
+</li><li id="radio102"><input name="radio10" value="true" type="radio">C tel	
+</li><li id="radio103"><input name="radio10" value="false" type="radio">D search
+</li></ul></div><div class="item"><h3 id="textradio11">11、  表单的默认提交方式 ：
+</h3><ul><li id="radio110"><input name="radio11" value="true" type="radio">A get	
+</li><li id="radio111"><input name="radio11" value="false" type="radio">B post	
+</li><li id="radio112"><input name="radio11" value="false" type="radio">C label	
+</li><li id="radio113"><input name="radio11" value="false" type="radio">D span
+</li></ul></div><div class="item"><h3 id="textradio12">12、  以下是日期格式的是 ：
+</h3><ul><li id="radio120"><input name="radio12" value="true" type="radio">A date	
+</li><li id="radio121"><input name="radio12" value="false" type="radio">B data	
+</li><li id="radio122"><input name="radio12" value="false" type="radio">C time	
+</li><li id="radio123"><input name="radio12" value="false" type="radio">D now
+</li></ul></div><div class="item"><h3 id="textradio13">13、  设置表单的提交地址的属性是: 	
+</h3><ul><li id="radio130"><input name="radio13" value="false" type="radio">A method	
+</li><li id="radio131"><input name="radio13" value="true" type="radio">B action	
+</li><li id="radio132"><input name="radio13" value="false" type="radio">C target	
+</li><li id="radio133"><input name="radio13" value="false" type="radio">D input
+</li></ul></div><div class="item"><h3 id="textradio14">14、  以下是html5新增加的表单属性是 ：
+</h3><ul><li id="radio140"><input name="radio14" value="true" type="radio">A placeholder	
+</li><li id="radio141"><input name="radio14" value="false" type="radio">B email	
+</li><li id="radio142"><input name="radio14" value="false" type="radio">C action	
+</li><li id="radio143"><input name="radio14" value="false" type="radio">D target
+</li></ul></div><div class="item"><h3 id="textradio15">15、  定义表单数据提交URL的属性是	
+</h3><ul><li id="radio150"><input name="radio15" value="false" type="radio">A method	
+</li><li id="radio151"><input name="radio15" value="true" type="radio">B action	
+</li><li id="radio152"><input name="radio15" value="false" type="radio">C name	
+</li><li id="radio153"><input name="radio15" value="false" type="radio">D target
+</li></ul></div><div class="item"><h3 id="textradio16">16、  以下代码实现密码框的代码是：
+</h3><ul><li id="radio160"><input name="radio16" value="false" type="radio">A ＜input type="text"＞	
+</li><li id="radio161"><input name="radio16" value="true" type="radio">B ＜input type="password"＞	
+</li><li id="radio162"><input name="radio16" value="false" type="radio">C ＜input type="radio"＞	
+</li><li id="radio163"><input name="radio16" value="false" type="radio">D ＜input type="checkbox"＞
+</li></ul></div><div class="item"><h3 id="textradio17">17、  表单中用表示网址的输入组件：
+</h3><ul><li id="radio170"><input name="radio17" value="true" type="radio">A url	
+</li><li id="radio171"><input name="radio17" value="false" type="radio">B email	
+</li><li id="radio172"><input name="radio17" value="false" type="radio">C tel	
+</li><li id="radio173"><input name="radio17" value="false" type="radio">D http
+</li></ul></div><div class="item"><h3 id="textradio18">18、  以下专门用来定义邮箱的表单组件是	
+</h3><ul><li id="radio180"><input name="radio18" value="false" type="radio">A text	
+</li><li id="radio181"><input name="radio18" value="true" type="radio">B email	
+</li><li id="radio182"><input name="radio18" value="false" type="radio">C tel	
+</li><li id="radio183"><input name="radio18" value="false" type="radio">D search
+</li></ul></div><div class="item"><h3 id="textradio19">19、  图像域的类型： 	
+</h3><ul><li id="radio190"><input name="radio19" value="false" type="radio">A file	
+</li><li id="radio191"><input name="radio19" value="true" type="radio">B image	
+</li><li id="radio192"><input name="radio19" value="false" type="radio">C checkbox	
+</li><li id="radio193"><input name="radio19" value="false" type="radio">D radio
+</li></ul></div><div class="item"><h3 id="textradio20">20、  target属性设置表单提交的打开方式,默认是： 
+</h3><ul><li id="radio200"><input name="radio20" value="false" type="radio">A _blank	
+</li><li id="radio201"><input name="radio20" value="true" type="radio">B _self	
+</li><li id="radio202"><input name="radio20" value="false" type="radio">C _parent	
+</li><li id="radio203"><input name="radio20" value="false" type="radio">D 以上都不对
+</li></ul></div><div class="item"><h3 id="textradio21">21、  以下是单选框的类型的是：	
+</h3><ul><li id="radio210"><input name="radio21" value="false" type="radio">A text	
+</li><li id="radio211"><input name="radio21" value="false" type="radio">B password	
+</li><li id="radio212"><input name="radio21" value="false" type="radio">C chekbox	
+</li><li id="radio213"><input name="radio21" value="true" type="radio">D radio
+</li></ul></div><div class="item"><h3 id="textradio22">22、  单选框的选中状态是： 	
+</h3><ul><li id="radio220"><input name="radio22" value="true" type="radio">A checked	
+</li><li id="radio221"><input name="radio22" value="false" type="radio">B selected	
+</li><li id="radio222"><input name="radio22" value="false" type="radio">C disabled	
+</li><li id="radio223"><input name="radio22" value="false" type="radio">D enables
+</li></ul></div></form><form id="form2" action="" method=""><h2 class="title">多选题:</h2><div class="item"><h3 id="textradio23">23、  以下不是数值格式的表单组件有：	
+</h3><ul><li id="radio230"><input name="radio23" value="false" type="checkbox">A number	
+</li><li id="radio231"><input name="radio23" value="true" type="checkbox">B data	
+</li><li id="radio232"><input name="radio23" value="true" type="checkbox">C tel	
+</li><li id="radio233"><input name="radio23" value="true" type="checkbox">D url
+</li></ul></div><div class="item"><h3 id="textradio24">24、  表单中，以下可以添加到图像域元素属性的是： 	
+</h3><ul><li id="radio240"><input name="radio24" value="true" type="checkbox">A name	
+</li><li id="radio241"><input name="radio24" value="true" type="checkbox">B src	
+</li><li id="radio242"><input name="radio24" value="true" type="checkbox">C id	
+</li><li id="radio243"><input name="radio24" value="true" type="checkbox">D alt
+</li></ul></div><div class="item"><h3 id="textradio25">25、  表单有两种提交方式 ：	
+</h3><ul><li id="radio250"><input name="radio25" value="true" type="checkbox">A get	
+</li><li id="radio251"><input name="radio25" value="true" type="checkbox">B post	
+</li><li id="radio252"><input name="radio25" value="false" type="checkbox">C label	
+</li><li id="radio253"><input name="radio25" value="false" type="checkbox">D span
+</li></ul></div><div class="item"><h3 id="textradio26">26、  不是表单的提交方式的有：	
+</h3><ul><li id="radio260"><input name="radio26" value="false" type="checkbox">A get	
+</li><li id="radio261"><input name="radio26" value="false" type="checkbox">B post	
+</li><li id="radio262"><input name="radio26" value="true" type="checkbox">C pass	
+</li><li id="radio263"><input name="radio26" value="true" type="checkbox">D test
+</li></ul></div><div class="item"><h3 id="textradio27">27、  以下是双标签的表单组件有：
+</h3><ul><li id="radio270"><input name="radio27" value="false" type="checkbox">A file	
+</li><li id="radio271"><input name="radio27" value="true" type="checkbox">B textarea	
+</li><li id="radio272"><input name="radio27" value="true" type="checkbox">C select	
+</li><li id="radio273"><input name="radio27" value="false" type="checkbox">D radio
+</li></ul></div><div class="item"><h3 id="textradio28">28、  按钮的三种类型： 
+</h3><ul><li id="radio280"><input name="radio28" value="true" type="checkbox">A submit	
+</li><li id="radio281"><input name="radio28" value="true" type="checkbox">B reset	
+</li><li id="radio282"><input name="radio28" value="true" type="checkbox">C button	
+</li><li id="radio283"><input name="radio28" value="false" type="checkbox">D radio
+</li></ul></div><div class="item"><h3 id="textradio29">29、  以下是表单属性的是 ：
+</h3><ul><li id="radio290"><input name="radio29" value="true" type="checkbox">A method	
+</li><li id="radio291"><input name="radio29" value="true" type="checkbox">B action	
+</li><li id="radio292"><input name="radio29" value="true" type="checkbox">C target	
+</li><li id="radio293"><input name="radio29" value="true" type="checkbox">D name
+</li></ul></div><div class="item"><h3 id="textradio30">30、  以下属于表单对象类型的是	
+</h3><ul><li id="radio300"><input name="radio30" value="true" type="checkbox">A 文本框	
+</li><li id="radio301"><input name="radio30" value="true" type="checkbox">B 密码框	
+</li><li id="radio302"><input name="radio30" value="true" type="checkbox">C 文本域	
+</li><li id="radio303"><input name="radio30" value="true" type="checkbox">D 图像域
+</li></ul></div><div class="item"><h3 id="textradio31">31、  以下不属于html5新增加的表单组件的是 ：	
+</h3><ul><li id="radio310"><input name="radio31" value="true" type="checkbox">A file	
+</li><li id="radio311"><input name="radio31" value="false" type="checkbox">B number	
+</li><li id="radio312"><input name="radio31" value="false" type="checkbox">C tel	
+</li><li id="radio313"><input name="radio31" value="true" type="checkbox">D hidden
+</li></ul></div><div class="item"><h3 id="textradio32">32、  以下属于input属性的是:	
+</h3><ul><li id="radio320"><input name="radio32" value="true" type="checkbox">A type	
+</li><li id="radio321"><input name="radio32" value="true" type="checkbox">B value	
+</li><li id="radio322"><input name="radio32" value="true" type="checkbox">C name	
+</li><li id="radio323"><input name="radio32" value="false" type="checkbox">D method
+</li></ul></div><div class="item"><h3 id="textradio33">33、  以下表单控件中，可以定义value属性的是有:	
+</h3><ul><li id="radio330"><input name="radio33" value="false" type="checkbox">A file	
+</li><li id="radio331"><input name="radio33" value="true" type="checkbox">B password	
+</li><li id="radio332"><input name="radio33" value="true" type="checkbox">C text	
+</li><li id="radio333"><input name="radio33" value="true" type="checkbox">D url
+</li></ul></div><div class="item"><h3 id="textradio34">34、  以下 属于表单标签form的属性的是	
+</h3><ul><li id="radio340"><input name="radio34" value="true" type="checkbox">A name	
+</li><li id="radio341"><input name="radio34" value="true" type="checkbox">B action	
+</li><li id="radio342"><input name="radio34" value="true" type="checkbox">C method	
+</li><li id="radio343"><input name="radio34" value="true" type="checkbox">D target
+</li></ul></div><div class="item"><h3 id="textradio35">35、  以下可以作为表单按钮的是 ：
+</h3><ul><li id="radio350"><input name="radio35" value="false" type="checkbox">A get	
+</li><li id="radio351"><input name="radio35" value="true" type="checkbox">B reset	
+</li><li id="radio352"><input name="radio35" value="true" type="checkbox">C submit	
+</li><li id="radio353"><input name="radio35" value="true" type="checkbox">D image
+</li></ul></div><div class="item"><h3 id="textradio36">36、  以下不能定义value的标签有：	
+</h3><ul><li id="radio360"><input name="radio36" value="true" type="checkbox">A file	
+</li><li id="radio361"><input name="radio36" value="true" type="checkbox">B span	
+</li><li id="radio362"><input name="radio36" value="false" type="checkbox">C tel	
+</li><li id="radio363"><input name="radio36" value="false" type="checkbox">D url
+</li></ul></div></form><form id="form3" action="" method=""><h2 class="title">判断题:</h2><div class="item"><h3 id="textradio37">37、  单选框在同一组中的选项必须使用同一名称	
+</h3>
+<ul><li id="panradio371"><input name="radio37" value="true" type="radio">√</li><li id="panradio372"><input name="radio37" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio38">38、  下拉框的selected选中状态属性，放置在select标签里	
+</h3>
+<ul><li id="panradio381"><input name="radio38" value="false" type="radio">√</li><li id="panradio382"><input name="radio38" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio39">39、  文本域标签是＜textarea＞可以通过标签中的height属性来设置文本域有多少行
+</h3>
+<ul><li id="panradio391"><input name="radio39" value="false" type="radio">√</li><li id="panradio392"><input name="radio39" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio40">40、  多行文本域的标签是双标签	
+</h3>
+<ul><li id="panradio401"><input name="radio40" value="true" type="radio">√</li><li id="panradio402"><input name="radio40" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio41">41、  复选框可以同时选中多个
+</h3>
+<ul><li id="panradio411"><input name="radio41" value="true" type="radio">√</li><li id="panradio412"><input name="radio41" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio42">42、  h5里电话它并不限定只输入数字，因为很多的电话号码还包括其他字符
+</h3>
+<ul><li id="panradio421"><input name="radio42" value="true" type="radio">√</li><li id="panradio422"><input name="radio42" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio43">43、  数值格式没有限制
+</h3>
+<ul><li id="panradio431"><input name="radio43" value="false" type="radio">√</li><li id="panradio432"><input name="radio43" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio44">44、  number组件是用来定义电话号码的
+</h3>
+<ul><li id="panradio441"><input name="radio44" value="false" type="radio">√</li><li id="panradio442"><input name="radio44" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio45">45、  文本域的标签是单标签	
+</h3>
+<ul><li id="panradio451"><input name="radio45" value="false" type="radio">√</li><li id="panradio452"><input name="radio45" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio46">46、  表单对象都是单标签	
+</h3>
+<ul><li id="panradio461"><input name="radio46" value="false" type="radio">√</li><li id="panradio462"><input name="radio46" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio47">47、  表单元素的placeholder属性与value值不一样
+</h3>
+<ul><li id="panradio471"><input name="radio47" value="true" type="radio">√</li><li id="panradio472"><input name="radio47" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio48">48、  selected是option的属性	
+</h3>
+<ul><li id="panradio481"><input name="radio48" value="true" type="radio">√</li><li id="panradio482"><input name="radio48" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio49">49、  单选框在同一组中的选项可以使用不同名称
+</h3>
+<ul><li id="panradio491"><input name="radio49" value="false" type="radio">√</li><li id="panradio492"><input name="radio49" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio50">50、  h5里电话只能输入数字 
+</h3>
+<ul><li id="panradio501"><input name="radio50" value="false" type="radio">√</li><li id="panradio502"><input name="radio50" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio51">51、  select下拉菜单里只能有一个 option 	
+</h3>
+<ul><li id="panradio511"><input name="radio51" value="false" type="radio">√</li><li id="panradio512"><input name="radio51" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio52">52、  表单中的元素都使用＜input＞标签插入
+</h3>
+<ul><li id="panradio521"><input name="radio52" value="false" type="radio">√</li><li id="panradio522"><input name="radio52" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio53">53、  下拉菜单中无法设置多选	
+</h3>
+<ul><li id="panradio531"><input name="radio53" value="false" type="radio">√</li><li id="panradio532"><input name="radio53" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio54">54、  表单元素的placeholder属性与value值一样
+</h3>
+<ul><li id="panradio541"><input name="radio54" value="false" type="radio">√</li><li id="panradio542"><input name="radio54" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio55">55、  按钮的类型有两种	
+</h3>
+<ul><li id="panradio551"><input name="radio55" value="false" type="radio">√</li><li id="panradio552"><input name="radio55" value="true" type="radio">×</li></ul></div>
+</form><form id="formsubmit" action="" method="post" accept-charset="utf-8"><input id="commitButton" value="提交试卷" class="submit" onclick="commit()" type="button"> 
+<div class="hz"><h2>第5单元</h2><p>姓名：<span id="studentname">网页</span></p> 
+<p>总题数：<span id="totalnum">55</span></p> 
+ <p>错题数：<span id="errornum">0</span></p> 
+ <p>正确率：<span id="errorrate">0</span>％</p> 
+ <input id="istudentname" name="studentname" type="hidden">
+<input id="ierrorrate" name="errorrate" type="hidden">
+<input id="iexamunit" name="examunit" type="hidden">
+</div> </form></body></html>

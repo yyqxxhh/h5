@@ -1,0 +1,32 @@
+@charset "utf-8";
+div{
+	height: 650px;
+	width: 600px;
+	/*border: solid 1px red;*/
+	margin: auto;
+	background:url(../img/ground_09.png) no-repeat 425px 440px , 
+	url(../img/ground_06.png) no-repeat 410px 420px	,
+	url(../img/ground_03.png) no-repeat 345px 340px,
+	#e8fbff url(../img/ground_03.png) no-repeat 280px 285px;
+}
+
+div table{
+	background-color: #92bdf4;
+}
+ a {
+ 	text-decoration: none;
+ 	color: black;
+ }
+ h5{
+ 	text-decoration: underline;
+ }
+ 
+ .ul-4 li{
+ 	list-style-image: url(../img/ground_07_03.png);
+ }
+li{
+ 	list-style-type: none;
+ }
+h3{
+	color: red;
+}

@@ -1,0 +1,15 @@
+@charset "utf-8";
+/*标签选择器*/
+li{
+	color: blue;
+}
+/*id选择器*/
+#two{
+	color: orange;
+}
+/*类选择器*/
+.li-gray{
+	color: greenyellow;
+}
+
+

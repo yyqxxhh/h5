@@ -1,0 +1,365 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"> <title>测试题</title><style>
+*{ margin:0; padding:0;}img{ border:0;}
+body{ font-family:微软雅黑; font-size:14px; color:#333; padding-left:10px;}
+li{ list-style:none;}
+input{ vertical-align:middle;}
+.title{ line-height:60px; height:60px; color:#000;}
+.item h3{ line-height:40px; font-size:16px; font-weight:normal;}
+.item ul{ line-height:30px; padding-left:26px; font-size:13px;}
+.item ul input{ margin:0 10px 0 0;}
+.submit{ display:block; position:fixed; right:50px; top:50; margin-top:170px; width:100px; height:30px; font-family:微软雅黑; cursor:pointer; font-size:16px;}
+.hz{width:140px;line-height:30px; height:150px; position:fixed;right:10px; top:50;margin-top:15px;color:#cd0000; font-size:16px;}.hz input{border:0;}
+</style><script type="text/javascript" language="javascript"> 
+ 	var allerrornum = 0;
+ 	var totalnum = 0;  
+    var postData = ''; 
+ 	function stop(){ 
+ 		return false; 
+ 	} 
+ 	document.oncontextmenu=stop; 
+ 	function createXmlHttp() { 
+ 	  var xmlHttp = null; 
+ 		 
+ 	  try { 
+ 		//Firefox, Opera 8.0+, Safari 
+ 		xmlHttp = new XMLHttpRequest(); 
+ 	  } catch (e) { 
+ 		//IE 
+ 		try { 
+ 		  xmlHttp = new ActiveXObject('Msxml2.XMLHTTP'); 
+ 		} catch (e) { 
+ 		  xmlHttp = new ActiveXObject('Microsoft.XMLHTTP'); 
+ 		} 
+ 	  } 
+ 		 
+ 	  return xmlHttp; 
+ 	} 
+ 	   
+ 	function submitForm() { 
+ 	  var xmlHttp = createXmlHttp(); 
+ 	  if(!xmlHttp) { 
+ 		alert('您的浏览器不支持AJAX！'); 
+ 		return 0; 
+ 	  } 
+ 	    
+ 	  var url = 'score.cgi'; 
+ 	    
+ 	  xmlHttp.open('POST', url, true); 
+ 	  xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+ 	  xmlHttp.onreadystatechange = function() { 
+ 		if(xmlHttp.readyState == 4 && xmlHttp.status == 200) { 
+ 		  if(xmlHttp.responseText == '1') { 
+ 			alert('post successed'); 
+ 		  } 
+ 		} 
+ 	  } 
+ 	  xmlHttp.send(postData); 
+ 	} 
+ 	function init(){ 
+ 		var spanid; 
+		forms = document.getElementById('form1');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form2');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form3');  totalnum+=forms.length/2; 
+ 		spanid = document.getElementById('totalnum');
+ 		spanid.innerHTML = totalnum; 
+ 		spanid = document.getElementById('studentname'); 
+ 		spanid.innerHTML = decodeURI('%E7%BD%91%E9%A1%B5'); 
+ 	} 
+ 	function commit() {  
+ 		var i;  
+ 		var rid;  
+ 		var radios; 
+ 		var checkrightflag;
+ 		var forms = document.getElementById('form1');  
+ 		var errornum = forms.length/4;
+ 		allerrornum = 0;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					rid.style.color = 'black';  
+ 					errornum--;
+ 				}
+ 			}  
+ 		}  
+ 		allerrornum = errornum;
+ 		
+ 		forms = document.getElementById('form2');  
+ 		errornum = forms.length/4;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i * 4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 0;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if( (radios[x].value == 'true' && radios[x].checked == false) || (radios[x].value == 'false' && radios[x].checked == true) ){  
+ 					checkrightflag = 1;
+ 				}
+ 			}  
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		allerrornum = allerrornum + errornum;
+ 
+ 		forms = document.getElementById('form3');  
+ 		errornum = forms.length/2;
+ 		for (i=0; i<forms.length/2; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*2].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 1;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					checkrightflag = 0;
+ 				}
+ 			} 
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		rid = document.getElementById('errornum');
+ 		allerrornum = allerrornum + errornum;
+ 		rid.innerHTML = allerrornum;
+ 		rid = document.getElementById('errorrate');
+ 		var errrate = 100.0 - (allerrornum * 1.0) / totalnum * 100; 
+		rid.innerHTML = errrate.toFixed(2); 
+ 		document.getElementById('ierrorrate').value = errrate.toFixed(2); 
+ 	  postData = 'studentname=%E7%BD%91%E9%A1%B5'; 
+ 	  postData += '&errorrate='; 
+ 	  postData += errrate.toFixed(2); 
+ 	  postData += '&examunit=7'; 
+ 	  document.getElementById('commitButton').disabled=true; 
+     submitForm();	}   
+ 	window.onload=init;</script></head> 
+ 
+ 
+ <body><noscript><iframe src='*.htm'></noscript><form id="form1" action="" method=""><h2 class="title">单选题:</h2><div class="item"><h3 id="textradio1">1、   以下代码能够将一段文本设置成首行缩进两个字并添加下划线的是
+</h3><ul><li id="radio10"><input name="radio1" value="false" type="radio">A text-decoration：underline; text-indent：20;	
+</li><li id="radio11"><input name="radio1" value="false" type="radio">B text-indent：underline; text-decoration：20px;	
+</li><li id="radio12"><input name="radio1" value="true" type="radio">C text-decoration：underline; text-indent：2em;	
+</li><li id="radio13"><input name="radio1" value="false" type="radio">D text-decoration：underline; text-align:2em
+</li></ul></div><div class="item"><h3 id="textradio2">2、   css中，用于设置背景重复的属性默认值是
+</h3><ul><li id="radio20"><input name="radio2" value="false" type="radio">A repeat-x	
+</li><li id="radio21"><input name="radio2" value="false" type="radio">B repeat-y	
+</li><li id="radio22"><input name="radio2" value="true" type="radio">C repeat  	
+</li><li id="radio23"><input name="radio2" value="false" type="radio">D no-repeat  
+</li></ul></div><div class="item"><h3 id="textradio3">3、   下列选项中不属于CSS 文字属性的是（   ）
+</h3><ul><li id="radio30"><input name="radio3" value="false" type="radio">A font-size   	
+</li><li id="radio31"><input name="radio3" value="false" type="radio">B color	
+</li><li id="radio32"><input name="radio3" value="false" type="radio">C font-family	
+</li><li id="radio33"><input name="radio3" value="true" type="radio">D height
+</li></ul></div><div class="item"><h3 id="textradio4">4、   关于text-indent描述错误的是(   )	
+</h3><ul><li id="radio40"><input name="radio4" value="false" type="radio">A text-indent：20px	
+</li><li id="radio41"><input name="radio4" value="true" type="radio">B text-indent:left	
+</li><li id="radio42"><input name="radio4" value="false" type="radio">C text-indent:2em	
+</li><li id="radio43"><input name="radio4" value="false" type="radio">D text-indent:-20px
+</li></ul></div><div class="item"><h3 id="textradio5">5、   下列 用于设置背景位置属性的	
+</h3><ul><li id="radio50"><input name="radio5" value="false" type="radio">A bcakground-image     	
+</li><li id="radio51"><input name="radio5" value="false" type="radio">B position
+</li><li id="radio52"><input name="radio5" value="true" type="radio">C background-position       	
+</li><li id="radio53"><input name="radio5" value="false" type="radio">D background-repeat
+</li></ul></div><div class="item"><h3 id="textradio6">6、   怎样给所有的＜h1＞标签添加背景颜色（   ）
+</h3><ul><li id="radio60"><input name="radio6" value="false" type="radio">A .h1 {background-color:#FFFFFF}	
+</li><li id="radio61"><input name="radio6" value="true" type="radio">B h1 {background-color:#FFFFFF;}  	
+</li><li id="radio62"><input name="radio6" value="false" type="radio">C h1.all {background-color:#FFFFFF}  	
+</li><li id="radio63"><input name="radio6" value="false" type="radio">D #h1 {background-color:#FFFFFF} 
+</li></ul></div><div class="item"><h3 id="textradio7">7、   ＜strong＞…＜/strong＞标签的作用是(  )	
+</h3><ul><li id="radio70"><input name="radio7" value="false" type="radio">A 斜体	
+</li><li id="radio71"><input name="radio7" value="false" type="radio">B 下划线	
+</li><li id="radio72"><input name="radio7" value="false" type="radio">C 上划线	
+</li><li id="radio73"><input name="radio7" value="false" type="radio">C 加粗
+</li></ul></div><div class="item"><h3 id="textradio8">8、   实现背景图水平平铺的属性值是(   )	
+</h3><ul><li id="radio80"><input name="radio8" value="false" type="radio">A repeat-y	
+</li><li id="radio81"><input name="radio8" value="true" type="radio">B repeat-x	
+</li><li id="radio82"><input name="radio8" value="false" type="radio">C Repeat-xy	
+</li><li id="radio83"><input name="radio8" value="false" type="radio">D no-repeat
+</li></ul></div><div class="item"><h3 id="textradio9">9、   段落的首行缩进属性能够将每段文字的首行文字按照给定的大小缩进关于首行缩进属性的设置，下列说法正确的是
+</h3><ul><li id="radio90"><input name="radio9" value="true" type="radio">A 设置段落缩进2个字符的代码是text-indent:2em	
+</li><li id="radio91"><input name="radio9" value="false" type="radio">B 设置段落缩进2个字符的代码是text-indent:36px	
+</li><li id="radio92"><input name="radio9" value="false" type="radio">C 段落缩进的属性text-indent的属性值的单位只能是正数	
+</li><li id="radio93"><input name="radio9" value="false" type="radio">D 段落缩进的作用和padding-left完全相同，都可以让文字首行缩进
+</li></ul></div><div class="item"><h3 id="textradio10">10、   ＜p style="font-style:italic;text-indent:0em; width:200px;"＞文本＜/p＞对于p标签中文本的显示效果描述正确的是
+</h3><ul><li id="radio100"><input name="radio10" value="false" type="radio">A 文本显示为粗体,首行无缩进  	
+</li><li id="radio101"><input name="radio10" value="false" type="radio">B 文本显示为加粗倾斜，宽度为200px  	
+</li><li id="radio102"><input name="radio10" value="false" type="radio">C 文本显示为普通正常字体,宽度为100px	
+</li><li id="radio103"><input name="radio10" value="true" type="radio">D 文本显示为倾斜，首行无缩进  
+</li></ul></div><div class="item"><h3 id="textradio11">11、   下列哪一项是css正确的语法构成（   ）
+</h3><ul><li id="radio110"><input name="radio11" value="false" type="radio">A body:color=black  
+</li><li id="radio111"><input name="radio11" value="false" type="radio">B {body;color:black}   	
+</li><li id="radio112"><input name="radio11" value="true" type="radio">C body {color: black;}   	
+</li><li id="radio113"><input name="radio11" value="false" type="radio">D {body:color=black(body}
+</li></ul></div><div class="item"><h3 id="textradio12">12、   下面哪个CSS属性是用来更改背景颜色的（  ）
+</h3><ul><li id="radio120"><input name="radio12" value="true" type="radio">A background-color	
+</li><li id="radio121"><input name="radio12" value="false" type="radio">B bgcolor	
+</li><li id="radio122"><input name="radio12" value="false" type="radio">C color	
+</li><li id="radio123"><input name="radio12" value="false" type="radio">D text
+</li></ul></div><div class="item"><h3 id="textradio13">13、   能够将网页中的文本设置为加粗的是
+</h3><ul><li id="radio130"><input name="radio13" value="false" type="radio">A Font-size:bold    	
+</li><li id="radio131"><input name="radio13" value="true" type="radio">B Font-weight:bold  
+</li><li id="radio132"><input name="radio13" value="false" type="radio">C Font-width:900   	
+</li><li id="radio133"><input name="radio13" value="false" type="radio">D Font-weigth:normal
+</li></ul></div><div class="item"><h3 id="textradio14">14、   设置段落文本水平居中，text-align属性的值为	
+</h3><ul><li id="radio140"><input name="radio14" value="false" type="radio">A top  	
+</li><li id="radio141"><input name="radio14" value="false" type="radio">B left  	
+</li><li id="radio142"><input name="radio14" value="true" type="radio">C center   	
+</li><li id="radio143"><input name="radio14" value="false" type="radio">D Right 
+</li></ul></div><div class="item"><h3 id="textradio15">15、   css中，用于设置背景重复的属性是	
+</h3><ul><li id="radio150"><input name="radio15" value="false" type="radio">A Background-color           	
+</li><li id="radio151"><input name="radio15" value="false" type="radio">B Background-image	
+</li><li id="radio152"><input name="radio15" value="true" type="radio">C Background-repeat          	
+</li><li id="radio153"><input name="radio15" value="false" type="radio">D Background-option 
+</li></ul></div><div class="item"><h3 id="textradio16">16、   css文字属性中用于设置文字大小的属性的是	
+</h3><ul><li id="radio160"><input name="radio16" value="false" type="radio">A font-family    	
+</li><li id="radio161"><input name="radio16" value="true" type="radio">B font-size    	
+</li><li id="radio162"><input name="radio16" value="false" type="radio">C text-size	
+</li><li id="radio163"><input name="radio16" value="false" type="radio">D size    
+</li></ul></div><div class="item"><h3 id="textradio17">17、   利用标记选择器把所有段落标签中文字设置成黑色，以下代码正确的是	
+</h3><ul><li id="radio170"><input name="radio17" value="true" type="radio">A p{color:#000;}                 	
+</li><li id="radio171"><input name="radio17" value="false" type="radio">B #p{font-color:#000;}  	
+</li><li id="radio172"><input name="radio17" value="false" type="radio">C div.p{color:#000;}	
+</li><li id="radio173"><input name="radio17" value="false" type="radio">D .p{ color:#000;}
+</li></ul></div><div class="item"><h3 id="textradio18">18、   以下css中设置文字颜色属性color的写法 错误的是	
+</h3><ul><li id="radio180"><input name="radio18" value="false" type="radio">A h1{color：red;}                	
+</li><li id="radio181"><input name="radio18" value="true" type="radio">B .red{font-color：0066ff;}	
+</li><li id="radio182"><input name="radio18" value="false" type="radio">C #green{color：green;}          	
+</li><li id="radio183"><input name="radio18" value="false" type="radio">D body{color:#666;}
+</li></ul></div></form><form id="form2" action="" method=""><h2 class="title">多选题:</h2><div class="item"><h3 id="textradio19">19、   list-style-position的属性值是	
+</h3><ul><li id="radio190"><input name="radio19" value="true" type="checkbox">A outside	
+</li><li id="radio191"><input name="radio19" value="false" type="checkbox">B fixed	
+</li><li id="radio192"><input name="radio19" value="true" type="checkbox">C inside	
+</li><li id="radio193"><input name="radio19" value="false" type="checkbox">D 2em
+</li></ul></div><div class="item"><h3 id="textradio20">20、   下面关于line-height的说法正确的有	
+</h3><ul><li id="radio200"><input name="radio20" value="false" type="checkbox">A line-height和height的意义一样	
+</li><li id="radio201"><input name="radio20" value="true" type="checkbox">B 可以使用line-height属性对文字的行距进行设置	
+</li><li id="radio202"><input name="radio20" value="true" type="checkbox">C line-height属性的属性值的单位可以是百分比	
+</li><li id="radio203"><input name="radio20" value="false" type="checkbox">D 可以使用line-height属性对文字进行缩进
+</li></ul></div><div class="item"><h3 id="textradio21">21、   以下可以加粗文本的的是	
+</h3><ul><li id="radio210"><input name="radio21" value="false" type="checkbox">A Font-size:400	
+</li><li id="radio211"><input name="radio21" value="true" type="checkbox">B Font-weight:600 	
+</li><li id="radio212"><input name="radio21" value="true" type="checkbox">C Font-weigth:bolder	
+</li><li id="radio213"><input name="radio21" value="true" type="checkbox">D Font-weigth:bold
+</li></ul></div><div class="item"><h3 id="textradio22">22、   以下属于css文字属性的有	
+</h3><ul><li id="radio220"><input name="radio22" value="true" type="checkbox">A font-weight     	
+</li><li id="radio221"><input name="radio22" value="true" type="checkbox">B font-size   	
+</li><li id="radio222"><input name="radio22" value="false" type="checkbox">C margin     	
+</li><li id="radio223"><input name="radio22" value="true" type="checkbox">D font-family 
+</li></ul></div><div class="item"><h3 id="textradio23">23、   能够将b标签中的文本设置为正常的是	
+</h3><ul><li id="radio230"><input name="radio23" value="false" type="checkbox">A Font-size:400	
+</li><li id="radio231"><input name="radio23" value="true" type="checkbox">B Font-weight:400 	
+</li><li id="radio232"><input name="radio23" value="false" type="checkbox">C Font-weight:none	
+</li><li id="radio233"><input name="radio23" value="true" type="checkbox">D Font-weight:normal
+</li></ul></div><div class="item"><h3 id="textradio24">24、   下列关于段落css属性代码书写不正确的是
+</h3><ul><li id="radio240"><input name="radio24" value="true" type="checkbox">A p{ line-height:24px; text-align:middle;  }	
+</li><li id="radio241"><input name="radio24" value="false" type="checkbox">B p{ line-height:20px; text-align:center; }	
+</li><li id="radio242"><input name="radio24" value="true" type="checkbox">C p{ line-height:24px; text-align:top;  }	
+</li><li id="radio243"><input name="radio24" value="true" type="checkbox">D p{ line-height:24px; align:100px; }
+</li></ul></div><div class="item"><h3 id="textradio25">25、   "已知：＜p＞原价:120元＜/p＞
+<br><br>为p标签中的文本添加下划线的代码是p{text-decoration:underline；}
+<br><br>下列关于文本装饰text-decoration代码书写正确的是   "	
+</h3><ul><li id="radio250"><input name="radio25" value="true" type="checkbox">A p{ text-decoration:underline;  }  	
+</li><li id="radio251"><input name="radio25" value="false" type="checkbox">B p{ text-decoration:normal;   }	
+</li><li id="radio252"><input name="radio25" value="true" type="checkbox">C p{ text-decoration:overline;   } 	
+</li><li id="radio253"><input name="radio25" value="true" type="checkbox">D p{ text-decoration:line-through;  }
+</li></ul></div><div class="item"><h3 id="textradio26">26、   以下能实现字体斜体的效果有（    ）	
+</h3><ul><li id="radio260"><input name="radio26" value="true" type="checkbox">A font-style	
+</li><li id="radio261"><input name="radio26" value="true" type="checkbox">B ＜i＞	
+</li><li id="radio262"><input name="radio26" value="true" type="checkbox">C ＜em＞	
+</li><li id="radio263"><input name="radio26" value="false" type="checkbox">D ＜b＞
+</li></ul></div><div class="item"><h3 id="textradio27">27、   background-attachment的属性值是	
+</h3><ul><li id="radio270"><input name="radio27" value="false" type="checkbox">A left  	
+</li><li id="radio271"><input name="radio27" value="true" type="checkbox">B fixed	
+</li><li id="radio272"><input name="radio27" value="false" type="checkbox">C none	
+</li><li id="radio273"><input name="radio27" value="true" type="checkbox">D scroll
+</li></ul></div><div class="item"><h3 id="textradio28">28、   以下定义文本缩进属性值正确的	:
+</h3><ul><li id="radio280"><input name="radio28" value="false" type="checkbox">A left  	
+</li><li id="radio281"><input name="radio28" value="true" type="checkbox">B :20px	
+</li><li id="radio282"><input name="radio28" value="true" type="checkbox">C :10%	
+</li><li id="radio283"><input name="radio28" value="true" type="checkbox">D :-5em
+</li></ul></div><div class="item"><h3 id="textradio29">29、   下列 属于背景属性的	
+</h3><ul><li id="radio290"><input name="radio29" value="true" type="checkbox">A bcakground-image     	
+</li><li id="radio291"><input name="radio29" value="true" type="checkbox">B background	
+</li><li id="radio292"><input name="radio29" value="true" type="checkbox">C background-position       	
+</li><li id="radio293"><input name="radio29" value="true" type="checkbox">D background-color
+</li></ul></div><div class="item"><h3 id="textradio30">30、   关于css中设置背景的属性background叙述正确的是	
+</h3><ul><li id="radio300"><input name="radio30" value="false" type="checkbox">A 背景位置的设置可以用英语关键字，不可以用数字加单位	
+</li><li id="radio301"><input name="radio30" value="true" type="checkbox">B background-repeat为设置背景平铺与否	
+</li><li id="radio302"><input name="radio30" value="true" type="checkbox">C 可以定义背景的颜色	
+</li><li id="radio303"><input name="radio30" value="true" type="checkbox">D 背景位置如果用数字加单位表示，需用2个数值，则第一个值表示水平位置，第二个值表示垂直位置
+</li></ul></div></form><form id="form3" action="" method=""><h2 class="title">判断题:</h2><div class="item"><h3 id="textradio31">31、   段落文本的默认文字修饰属性值为text-decoration:none
+</h3>
+<ul><li id="panradio311"><input name="radio31" value="true" type="radio">√</li><li id="panradio312"><input name="radio31" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio32">32、   background:#f00可以将一个元素的边框设置为红色	
+</h3>
+<ul><li id="panradio321"><input name="radio32" value="false" type="radio">√</li><li id="panradio322"><input name="radio32" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio33">33、   list-style:normal;可以取消项目符的显示	
+</h3>
+<ul><li id="panradio331"><input name="radio33" value="false" type="radio">√</li><li id="panradio332"><input name="radio33" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio34">34、   默认情况下列表项目符的位置为内侧
+</h3>
+<ul><li id="panradio341"><input name="radio34" value="false" type="radio">√</li><li id="panradio342"><input name="radio34" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio35">35、   超链接的默认文字修饰属性值为text-decoration：none	
+</h3>
+<ul><li id="panradio351"><input name="radio35" value="false" type="radio">√</li><li id="panradio352"><input name="radio35" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio36">36、   设置文本居左对齐的属性和值是text-align:left，设置文字颜色的属性是text-color
+</h3>
+<ul><li id="panradio361"><input name="radio36" value="false" type="radio">√</li><li id="panradio362"><input name="radio36" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio37">37、   文本的对齐方式text-algin:bottom
+</h3>
+<ul><li id="panradio371"><input name="radio37" value="false" type="radio">√</li><li id="panradio372"><input name="radio37" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio38">38、   background-attachment属性可以设置背景的位置	
+</h3>
+<ul><li id="panradio381"><input name="radio38" value="false" type="radio">√</li><li id="panradio382"><input name="radio38" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio39">39、   段落缩进的属性text-indent的属性值可以是数值加单位或者用em设置缩进几个字，百分比和负值		
+</h3>
+<ul><li id="panradio391"><input name="radio39" value="true" type="radio">√</li><li id="panradio392"><input name="radio39" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio40">40、   list-style-position,用来设置列表符位置
+</h3>
+<ul><li id="panradio401"><input name="radio40" value="true" type="radio">√</li><li id="panradio402"><input name="radio40" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio41">41、   line-height属性的属性值必须是像素值	
+</h3>
+<ul><li id="panradio411"><input name="radio41" value="false" type="radio">√</li><li id="panradio412"><input name="radio41" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio42">42、   文字字体加粗设置的属性和值是font-weight:bold
+</h3>
+<ul><li id="panradio421"><input name="radio42" value="true" type="radio">√</li><li id="panradio422"><input name="radio42" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio43">43、    css字体属性font-family:Arial, Helvetica, sans-serif;则优先使用以下Arial字体	
+</h3>
+<ul><li id="panradio431"><input name="radio43" value="true" type="radio">√</li><li id="panradio432"><input name="radio43" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio44">44、   background-repeat属性是用来设置背景图片是否重复显示的	
+</h3>
+<ul><li id="panradio441"><input name="radio44" value="true" type="radio">√</li><li id="panradio442"><input name="radio44" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio45">45、   设置背景定位的属性是background-position
+</h3>
+<ul><li id="panradio451"><input name="radio45" value="true" type="radio">√</li><li id="panradio452"><input name="radio45" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio46">46、   #nav{background-image:url(东风.jpg);}此样式可以在nav元素里显示出一张背景图	
+</h3>
+<ul><li id="panradio461"><input name="radio46" value="false" type="radio">√</li><li id="panradio462"><input name="radio46" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio47">47、   list-style-type:square;设置项目符以方块显示
+</h3>
+<ul><li id="panradio471"><input name="radio47" value="true" type="radio">√</li><li id="panradio472"><input name="radio47" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio48">48、   list-style-position:10px;用来设置列表符位置为10像素	
+</h3>
+<ul><li id="panradio481"><input name="radio48" value="false" type="radio">√</li><li id="panradio482"><input name="radio48" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio49">49、   "background可以改变背景的颜
+<br><br>色，color可以改变字体的颜色"	
+</h3>
+<ul><li id="panradio491"><input name="radio49" value="true" type="radio">√</li><li id="panradio492"><input name="radio49" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio50">50、   文字字体加粗设置的属性和值是font-weight:800	
+</h3>
+<ul><li id="panradio501"><input name="radio50" value="true" type="radio">√</li><li id="panradio502"><input name="radio50" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio51">51、   background-repeat属性默认情况下背景不平铺	
+</h3>
+<ul><li id="panradio511"><input name="radio51" value="false" type="radio">√</li><li id="panradio512"><input name="radio51" value="true" type="radio">×</li></ul></div>
+</form><form id="formsubmit" action="" method="post" accept-charset="utf-8"><input id="commitButton" value="提交试卷" class="submit" onclick="commit()" type="button"> 
+<div class="hz"><h2>第7单元</h2><p>姓名：<span id="studentname">网页</span></p> 
+<p>总题数：<span id="totalnum">51</span></p> 
+ <p>错题数：<span id="errornum">0</span></p> 
+ <p>正确率：<span id="errorrate">0</span>％</p> 
+ <input id="istudentname" name="studentname" type="hidden">
+<input id="ierrorrate" name="errorrate" type="hidden">
+<input id="iexamunit" name="examunit" type="hidden">
+</div> </form></body></html>

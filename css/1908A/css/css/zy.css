@@ -1,0 +1,114 @@
+@charset "utf-8";
+/*段落居中*/
+p{
+	text-align: right;
+}
+
+a{
+	font-size: 12px;
+	color: black;
+	text-decoration:none;
+}
+
+p span{
+	font-size: 20px;
+}
+
+.center{
+	text-align: center;
+}
+
+.center span{
+	font-style: italic;
+}
+
+h3{
+	color: green;
+	font-family: "楷体";
+	font-size: 26px;
+}
+
+span{
+	font-weight: bold;
+	/*font-style: italic;*/
+	font-size: 16px;
+}/*
+.p-1{
+	font-weight: 100;
+}*/
+div{/*
+	margin: 60px;*/
+	float: left;
+	width: 25%;
+	/*text-indent: 2em;*/
+}
+img{
+	width: 330px;
+	height: 220px;
+}
+
+div .ul-1 li{
+	list-style-type: none;
+}
+
+.ul-1{
+	font-size: 12px;
+	color: #a5abb2;
+	line-height: 24px;
+}
+
+.ul-1 .li-1{
+	font-weight: lighter;
+	font-size: 16px;
+	color: black;
+}
+
+.ul-1 .span-1{
+	color: red;
+	font-size: 18px;
+}
+
+.ul-1 .span-2{
+	text-decoration:line-through ;
+	font-size: 14px;
+}
+
+.ulol-1{
+	line-height: 38px;
+	font-size: 14px;
+	
+	
+}
+
+h2{
+	text-align: center;
+	color: #22ac38;
+}
+
+h5{
+	font-weight: 500;
+}
+
+.p-1{
+	text-align: left;
+	text-indent: 2em;
+	font-size: 14px;
+	color: #adabb9;
+	line-height: 24px;
+}
+
+.li-2{
+	font-weight: bold;
+}
+.li-3{
+	color: #d1992d;
+}
+.li-4{
+	color: #ff6394;
+}
+.li-5{
+	color: red;
+}
+.li-6{
+	color: green;
+}

@@ -1,0 +1,362 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"> <title>测试题</title><style>
+*{ margin:0; padding:0;}img{ border:0;}
+body{ font-family:微软雅黑; font-size:14px; color:#333; padding-left:10px;}
+li{ list-style:none;}
+input{ vertical-align:middle;}
+.title{ line-height:60px; height:60px; color:#000;}
+.item h3{ line-height:40px; font-size:16px; font-weight:normal;}
+.item ul{ line-height:30px; padding-left:26px; font-size:13px;}
+.item ul input{ margin:0 10px 0 0;}
+.submit{ display:block; position:fixed; right:50px; top:50; margin-top:170px; width:100px; height:30px; font-family:微软雅黑; cursor:pointer; font-size:16px;}
+.hz{width:140px;line-height:30px; height:150px; position:fixed;right:10px; top:50;margin-top:15px;color:#cd0000; font-size:16px;}.hz input{border:0;}
+</style><script type="text/javascript" language="javascript"> 
+ 	var allerrornum = 0;
+ 	var totalnum = 0;  
+    var postData = ''; 
+ 	function stop(){ 
+ 		return false; 
+ 	} 
+ 	document.oncontextmenu=stop; 
+ 	function createXmlHttp() { 
+ 	  var xmlHttp = null; 
+ 		 
+ 	  try { 
+ 		//Firefox, Opera 8.0+, Safari 
+ 		xmlHttp = new XMLHttpRequest(); 
+ 	  } catch (e) { 
+ 		//IE 
+ 		try { 
+ 		  xmlHttp = new ActiveXObject('Msxml2.XMLHTTP'); 
+ 		} catch (e) { 
+ 		  xmlHttp = new ActiveXObject('Microsoft.XMLHTTP'); 
+ 		} 
+ 	  } 
+ 		 
+ 	  return xmlHttp; 
+ 	} 
+ 	   
+ 	function submitForm() { 
+ 	  var xmlHttp = createXmlHttp(); 
+ 	  if(!xmlHttp) { 
+ 		alert('您的浏览器不支持AJAX！'); 
+ 		return 0; 
+ 	  } 
+ 	    
+ 	  var url = 'score.cgi'; 
+ 	    
+ 	  xmlHttp.open('POST', url, true); 
+ 	  xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+ 	  xmlHttp.onreadystatechange = function() { 
+ 		if(xmlHttp.readyState == 4 && xmlHttp.status == 200) { 
+ 		  if(xmlHttp.responseText == '1') { 
+ 			alert('post successed'); 
+ 		  } 
+ 		} 
+ 	  } 
+ 	  xmlHttp.send(postData); 
+ 	} 
+ 	function init(){ 
+ 		var spanid; 
+		forms = document.getElementById('form1');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form2');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form3');  totalnum+=forms.length/2; 
+ 		spanid = document.getElementById('totalnum');
+ 		spanid.innerHTML = totalnum; 
+ 		spanid = document.getElementById('studentname'); 
+ 		spanid.innerHTML = decodeURI('%E7%BD%91%E9%A1%B5'); 
+ 	} 
+ 	function commit() {  
+ 		var i;  
+ 		var rid;  
+ 		var radios; 
+ 		var checkrightflag;
+ 		var forms = document.getElementById('form1');  
+ 		var errornum = forms.length/4;
+ 		allerrornum = 0;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					rid.style.color = 'black';  
+ 					errornum--;
+ 				}
+ 			}  
+ 		}  
+ 		allerrornum = errornum;
+ 		
+ 		forms = document.getElementById('form2');  
+ 		errornum = forms.length/4;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i * 4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 0;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if( (radios[x].value == 'true' && radios[x].checked == false) || (radios[x].value == 'false' && radios[x].checked == true) ){  
+ 					checkrightflag = 1;
+ 				}
+ 			}  
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		allerrornum = allerrornum + errornum;
+ 
+ 		forms = document.getElementById('form3');  
+ 		errornum = forms.length/2;
+ 		for (i=0; i<forms.length/2; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*2].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 1;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					checkrightflag = 0;
+ 				}
+ 			} 
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		rid = document.getElementById('errornum');
+ 		allerrornum = allerrornum + errornum;
+ 		rid.innerHTML = allerrornum;
+ 		rid = document.getElementById('errorrate');
+ 		var errrate = 100.0 - (allerrornum * 1.0) / totalnum * 100; 
+		rid.innerHTML = errrate.toFixed(2); 
+ 		document.getElementById('ierrorrate').value = errrate.toFixed(2); 
+ 	  postData = 'studentname=%E7%BD%91%E9%A1%B5'; 
+ 	  postData += '&errorrate='; 
+ 	  postData += errrate.toFixed(2); 
+ 	  postData += '&examunit=8'; 
+ 	  document.getElementById('commitButton').disabled=true; 
+     submitForm();	}   
+ 	window.onload=init;</script></head> 
+ 
+ 
+ <body><noscript><iframe src='*.htm'></noscript><form id="form1" action="" method=""><h2 class="title">单选题:</h2><div class="item"><h3 id="textradio1">1、  边框粗细用css的(    )属性表示	
+</h3><ul><li id="radio10"><input name="radio1" value="false" type="radio">A border-color  	
+</li><li id="radio11"><input name="radio1" value="false" type="radio">B border-size	
+</li><li id="radio12"><input name="radio1" value="true" type="radio">C border-width 	
+</li><li id="radio13"><input name="radio1" value="false" type="radio">D border-solid
+</li></ul></div><div class="item"><h3 id="textradio2">2、  为div添加一条点线的下边框，颜色为红色，代码正确的是（   ）	
+</h3><ul><li id="radio20"><input name="radio2" value="false" type="radio">A Div{border:1px solid red;}	 
+</li><li id="radio21"><input name="radio2" value="false" type="radio">B Div{border-bottom:1px solid red;}	
+</li><li id="radio22"><input name="radio2" value="false" type="radio">C Div{border-bottom:1px dashed red;}	 
+</li><li id="radio23"><input name="radio2" value="true" type="radio">D Div{border-bottom:1px dotted red; }
+</li></ul></div><div class="item"><h3 id="textradio3">3、  以下background书写不正确的是（）？	
+</h3><ul><li id="radio30"><input name="radio3" value="false" type="radio">A background:none	
+</li><li id="radio31"><input name="radio3" value="false" type="radio">B background-color:red	
+</li><li id="radio32"><input name="radio3" value="false" type="radio">C background-repeat:no-repeat	
+</li><li id="radio33"><input name="radio3" value="true" type="radio">D background-image:green
+</li></ul></div><div class="item"><h3 id="textradio4">4、  在CSS中，为页面中的某个DIV标签设置以下样式，div { width:200px; padding:0 20px; }则该标签的实际宽度为	
+</h3><ul><li id="radio40"><input name="radio4" value="false" type="radio">A 200px  	
+</li><li id="radio41"><input name="radio4" value="false" type="radio">B 220px	
+</li><li id="radio42"><input name="radio4" value="true" type="radio">C 240px 	
+</li><li id="radio43"><input name="radio4" value="false" type="radio">D 250px
+</li></ul></div><div class="item"><h3 id="textradio5">5、  ".box{width:100px;border:1px solid #f00}该box
+<br>的实际宽度是多少（）？"	
+</h3><ul><li id="radio50"><input name="radio5" value="false" type="radio">A 100px	
+</li><li id="radio51"><input name="radio5" value="false" type="radio">B 101px	
+</li><li id="radio52"><input name="radio5" value="true" type="radio">C 102px	
+</li><li id="radio53"><input name="radio5" value="false" type="radio">D 98px
+</li></ul></div><div class="item"><h3 id="textradio6">6、  CSS盒子模型属性中，设置边框和内容之间的是	
+</h3><ul><li id="radio60"><input name="radio6" value="false" type="radio">A width	
+</li><li id="radio61"><input name="radio6" value="true" type="radio">B padding	
+</li><li id="radio62"><input name="radio6" value="false" type="radio">C border	
+</li><li id="radio63"><input name="radio6" value="false" type="radio">D margin 
+</li></ul></div><div class="item"><h3 id="textradio7">7、  padding值得顺序正确的是：（   ）	
+</h3><ul><li id="radio70"><input name="radio7" value="false" type="radio">A 上下左右  	
+</li><li id="radio71"><input name="radio7" value="false" type="radio">B 左右上下	
+</li><li id="radio72"><input name="radio7" value="true" type="radio">C 上右下左     	
+</li><li id="radio73"><input name="radio7" value="false" type="radio">D 右上下左
+</li></ul></div><div class="item"><h3 id="textradio8">8、  边框宽度用css的(    )属性表示	
+</h3><ul><li id="radio80"><input name="radio8" value="false" type="radio">A border-color  	
+</li><li id="radio81"><input name="radio8" value="false" type="radio">B border-style	
+</li><li id="radio82"><input name="radio8" value="true" type="radio">C border-width 	
+</li><li id="radio83"><input name="radio8" value="false" type="radio">D border-solid
+</li></ul></div><div class="item"><h3 id="textradio9">9、  css中，（   ）是设置‘右边框’的语法是：	
+</h3><ul><li id="radio90"><input name="radio9" value="false" type="radio">A border-style:＜值＞  	
+</li><li id="radio91"><input name="radio9" value="true" type="radio">B border-right:＜值＞  	
+</li><li id="radio92"><input name="radio9" value="false" type="radio">C border-top:＜值＞ 	
+</li><li id="radio93"><input name="radio9" value="false" type="radio">D border-bottom:＜值＞
+</li></ul></div><div class="item"><h3 id="textradio10">10、  对于padding属性说法正确的是（）？	
+</h3><ul><li id="radio100"><input name="radio10" value="true" type="radio">A 用于控制content与border之间的距离	
+</li><li id="radio101"><input name="radio10" value="false" type="radio">B 用于控制border与margin之间的距离	
+</li><li id="radio102"><input name="radio10" value="false" type="radio">C 用于控制元素与元素之间的距离	
+</li><li id="radio103"><input name="radio10" value="false" type="radio">D 以上说法均不正确
+</li></ul></div><div class="item"><h3 id="textradio11">11、  以下对盒子模型的描述不正确的是	
+</h3><ul><li id="radio110"><input name="radio11" value="false" type="radio">A Padding表示盒子的内填充	
+</li><li id="radio111"><input name="radio11" value="false" type="radio">B 盒子实际占据的宽一般为内容,填充、边框、边距的和     	
+</li><li id="radio112"><input name="radio11" value="true" type="radio">C 盒子的边框为margin  	
+</li><li id="radio113"><input name="radio11" value="false" type="radio">D 页面中的元素都可以看成是一个盒子
+</li></ul></div><div class="item"><h3 id="textradio12">12、  border复合属性不包含哪些选项	
+</h3><ul><li id="radio120"><input name="radio12" value="false" type="radio">A border-color               	
+</li><li id="radio121"><input name="radio12" value="false" type="radio">B border-style 	
+</li><li id="radio122"><input name="radio12" value="false" type="radio">C border-width	
+</li><li id="radio123"><input name="radio12" value="true" type="radio">D border-css
+</li></ul></div><div class="item"><h3 id="textradio13">13、  让一个盒子的背景图片不重复显示，应该用什么属性	
+</h3><ul><li id="radio130"><input name="radio13" value="true" type="radio">A background-repeat:no-repeat	
+</li><li id="radio131"><input name="radio13" value="false" type="radio">B background-position:no-repeat	
+</li><li id="radio132"><input name="radio13" value="false" type="radio">C background-repeat:repeat	
+</li><li id="radio133"><input name="radio13" value="false" type="radio">D background:repeat
+</li></ul></div><div class="item"><h3 id="textradio14">14、  border值写法不正确的有（）？	
+</h3><ul><li id="radio140"><input name="radio14" value="false" type="radio">A border:1px solid #F00	
+</li><li id="radio141"><input name="radio14" value="false" type="radio">B border:dashed 2px #0f0	
+</li><li id="radio142"><input name="radio14" value="false" type="radio">C border-width:5px  10px;	
+</li><li id="radio143"><input name="radio14" value="true" type="radio">D border-height:5px
+</li></ul></div><div class="item"><h3 id="textradio15">15、  padding值写法错误的是？
+</h3><ul><li id="radio150"><input name="radio15" value="true" type="radio">A padding:-20px	
+</li><li id="radio151"><input name="radio15" value="false" type="radio">B padding:10px;	
+</li><li id="radio152"><input name="radio15" value="false" type="radio">C padding:10px 20px	
+</li><li id="radio153"><input name="radio15" value="false" type="radio">D padding:10px 20px 30px
+</li></ul></div><div class="item"><h3 id="textradio16">16、  让一个盒子的背景图片只横向平铺
+</h3><ul><li id="radio160"><input name="radio16" value="true" type="radio">A background:url(a1.jpg) repeat-x; 	
+</li><li id="radio161"><input name="radio16" value="false" type="radio">B background-color:repeat-x;	
+</li><li id="radio162"><input name="radio16" value="false" type="radio">C background:url(a1.jpg) repeat-y; 	
+</li><li id="radio163"><input name="radio16" value="false" type="radio">D background:repeat;
+</li></ul></div><div class="item"><h3 id="textradio17">17、  以下不是盒模型基本属性的是（     ）	
+</h3><ul><li id="radio170"><input name="radio17" value="false" type="radio">A border	
+</li><li id="radio171"><input name="radio17" value="false" type="radio">B margin	
+</li><li id="radio172"><input name="radio17" value="true" type="radio">C float	
+</li><li id="radio173"><input name="radio17" value="false" type="radio">D padding
+</li></ul></div><div class="item"><h3 id="textradio18">18、  以下关于background属性写法不正确的是	
+</h3><ul><li id="radio180"><input name="radio18" value="false" type="radio">A background-image       	
+</li><li id="radio181"><input name="radio18" value="true" type="radio">B background-width      	
+</li><li id="radio182"><input name="radio18" value="false" type="radio">C background-attachment           	
+</li><li id="radio183"><input name="radio18" value="false" type="radio">D Background-color
+</li></ul></div><div class="item"><h3 id="textradio19">19、  下列关于使用表格与div+css布局的说法 正确的是	
+</h3><ul><li id="radio190"><input name="radio19" value="false" type="radio">A 表格布局大大缩减页面代码，提高页面浏览速度	
+</li><li id="radio191"><input name="radio19" value="false" type="radio">B 采用表格布局，使页面布局清晰，对搜索引擎更加友好	
+</li><li id="radio192"><input name="radio19" value="true" type="radio">C 表格布局不能实现样式和结构的分离	
+</li><li id="radio193"><input name="radio19" value="false" type="radio">D 表格布局兼容性更好，符合web标准规范的发展趋势
+</li></ul></div><div class="item"><h3 id="textradio20">20、  "阅读下列代码，css代码：
+<br>.text1{ color:red;margin:50px;}      
+<br>#text2{ color:blue;margin:15px 25px;}
+<br>HTML代码：
+<br>＜div class =""text1""＞text1 ＜/div＞   
+<br>＜h1 id=""text2""＞ text2 ＜/h1＞    
+<br>以下设置正确的是(    )"	
+</h3><ul><li id="radio200"><input name="radio20" value="false" type="radio">A text1的颜色是红色，所在的div上边距是10px, 	
+</li><li id="radio201"><input name="radio20" value="false" type="radio">B text2的颜色是红色，所在的div上边距是15px	
+</li><li id="radio202"><input name="radio20" value="false" type="radio">C text2的颜色是蓝色，所在的div上边距是30px	
+</li><li id="radio203"><input name="radio20" value="true" type="radio">D text1的颜色是红色，所在的div上边距是50px
+</li></ul></div><div class="item"><h3 id="textradio21">21、  下面对于margin定义不正确的是（）？	
+</h3><ul><li id="radio210"><input name="radio21" value="false" type="radio">A margin-top:5%	
+</li><li id="radio211"><input name="radio21" value="false" type="radio">B margin-bottom:5px	
+</li><li id="radio212"><input name="radio21" value="false" type="radio">C margin-top:10px	
+</li><li id="radio213"><input name="radio21" value="true" type="radio">D margin-color:#f00
+</li></ul></div></form><form id="form2" action="" method=""><h2 class="title">多选题:</h2><div class="item"><h3 id="textradio22">22、  "设置一个宽度为500px，背景色为红色，边框1像素需
+<br>要哪些属性（）？"	
+</h3><ul><li id="radio220"><input name="radio22" value="true" type="checkbox">A background:#f00	
+</li><li id="radio221"><input name="radio22" value="true" type="checkbox">B width:500px;	
+</li><li id="radio222"><input name="radio22" value="true" type="checkbox">C border:1px solid #f00	
+</li><li id="radio223"><input name="radio22" value="false" type="checkbox">D height:100px;
+</li></ul></div><div class="item"><h3 id="textradio23">23、  如果padding后面带两个值的话代表那个方向如：padding:10px  10px;下列说法错误的是：
+</h3><ul><li id="radio230"><input name="radio23" value="false" type="checkbox">A 上下，左右  	
+</li><li id="radio231"><input name="radio23" value="true" type="checkbox">B 上，右，下，左     	
+</li><li id="radio232"><input name="radio23" value="true" type="checkbox">C 右，上下，左	
+</li><li id="radio233"><input name="radio23" value="true" type="checkbox">D 下，上，右，左
+</li></ul></div><div class="item"><h3 id="textradio24">24、  下面对于padding写法说法正确的是（）？	
+</h3><ul><li id="radio240"><input name="radio24" value="true" type="checkbox">A padding:5px 4px 3px	
+</li><li id="radio241"><input name="radio24" value="true" type="checkbox">B padding-top:3px	
+</li><li id="radio242"><input name="radio24" value="true" type="checkbox">C padding:5px 4px	
+</li><li id="radio243"><input name="radio24" value="false" type="checkbox">D padding-bottom:-10px;
+</li></ul></div><div class="item"><h3 id="textradio25">25、  设置上外边距为5像素写法正确的有（）？
+</h3><ul><li id="radio250"><input name="radio25" value="true" type="checkbox">A margin:5px 0px 0px 0px	
+</li><li id="radio251"><input name="radio25" value="true" type="checkbox">B margin-top:5px	
+</li><li id="radio252"><input name="radio25" value="false" type="checkbox">C padding-top:5px	
+</li><li id="radio253"><input name="radio25" value="false" type="checkbox">D margin-bottom:5px
+</li></ul></div><div class="item"><h3 id="textradio26">26、  "认真阅读如下代码，两个div上下之间的距离不正确的是（ ）＜style type=""text/css""＞
+<br>.box1{width:200px;height:200px;background:#ccc;}
+<br>.box2{width:300px; height:200px;margin-top:20px;}
+<br>＜/style＞
+<br>html代码如下：
+<br>＜div class=""box1""＞……＜/div＞＜div class=""box2""＞……＜/div＞"
+</h3><ul><li id="radio260"><input name="radio26" value="true" type="checkbox">A 10px	
+</li><li id="radio261"><input name="radio26" value="false" type="checkbox">B 20px	
+</li><li id="radio262"><input name="radio26" value="true" type="checkbox">C 30px	
+</li><li id="radio263"><input name="radio26" value="true" type="checkbox">D 40px
+</li></ul></div><div class="item"><h3 id="textradio27">27、  组成盒子模型有哪些部分（）？	
+</h3><ul><li id="radio270"><input name="radio27" value="true" type="checkbox">A content	
+</li><li id="radio271"><input name="radio27" value="true" type="checkbox">B border	
+</li><li id="radio272"><input name="radio27" value="true" type="checkbox">C padding
+</li><li id="radio273"><input name="radio27" value="true" type="checkbox">D margin
+</li></ul></div><div class="item"><h3 id="textradio28">28、  边框样式属性值设置不正确的是	
+</h3><ul><li id="radio280"><input name="radio28" value="false" type="checkbox">A li{ border:1px red solid; width:220px;color:blue;}	
+</li><li id="radio281"><input name="radio28" value="false" type="checkbox">B li{ border:2px blue dashed;  width:220px;  color:blue;}  	
+</li><li id="radio282"><input name="radio28" value="true" type="checkbox">C li{ border-width:3px #00ff00;  width:220px;  color:blue;}     	
+</li><li id="radio283"><input name="radio28" value="true" type="checkbox">D li{ border-style:1px red;  width:220px;  color:blue;}
+</li></ul></div><div class="item"><h3 id="textradio29">29、  以下对盒子模型的描述 正确的是	
+</h3><ul><li id="radio290"><input name="radio29" value="true" type="checkbox">A 盒子模型属性中padding表示内填充空隙	
+</li><li id="radio291"><input name="radio29" value="false" type="checkbox">B 一般来说盒子所占据的空间都要比单纯的内容要小      
+</li><li id="radio292"><input name="radio29" value="true" type="checkbox">C 盒子模型属性中margin表示外边距	
+</li><li id="radio293"><input name="radio29" value="false" type="checkbox">D 盒子模型由content ,border 、padding 和margin，color这部分组成
+</li></ul></div><div class="item"><h3 id="textradio30">30、  属于border的属性是（）？
+</h3><ul><li id="radio300"><input name="radio30" value="true" type="checkbox">A border-color	
+</li><li id="radio301"><input name="radio30" value="true" type="checkbox">B border-width	
+</li><li id="radio302"><input name="radio30" value="true" type="checkbox">C border-style	
+</li><li id="radio303"><input name="radio30" value="true" type="checkbox">D border-top-width
+</li></ul></div><div class="item"><h3 id="textradio31">31、  "设置一个高度为100px，背景色红色，边框1像素需
+<br>要哪些属性（）？"	
+</h3><ul><li id="radio310"><input name="radio31" value="true" type="checkbox">A background:#f00	
+</li><li id="radio311"><input name="radio31" value="false" type="checkbox">B width:500px;	
+</li><li id="radio312"><input name="radio31" value="true" type="checkbox">C border:1px solid #ccc	
+</li><li id="radio313"><input name="radio31" value="true" type="checkbox">D height:100px;
+</li></ul></div><div class="item"><h3 id="textradio32">32、  margin-left:-30px;代表什么意思（）？
+</h3><ul><li id="radio320"><input name="radio32" value="true" type="checkbox">A 可以表示后一个元素向左移动30像素	
+</li><li id="radio321"><input name="radio32" value="false" type="checkbox">B 可以表示为当前元素向右移动30像素	
+</li><li id="radio322"><input name="radio32" value="true" type="checkbox">C 可以表示为当前元素向左移动30像素	
+</li><li id="radio323"><input name="radio32" value="false" type="checkbox">D 一定表示前一个元素向左移动30像素
+</li></ul></div></form><form id="form3" action="" method=""><h2 class="title">判断题:</h2><div class="item"><h3 id="textradio33">33、  background：#0f0是设置背景颜色为绿色	
+</h3>
+<ul><li id="panradio331"><input name="radio33" value="true" type="radio">√</li><li id="panradio332"><input name="radio33" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio34">34、  margin和padding不会影响盒子所占的宽度
+</h3>
+<ul><li id="panradio341"><input name="radio34" value="false" type="radio">√</li><li id="panradio342"><input name="radio34" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio35">35、  margin-left:10px表示当前元素向右移动10px
+</h3>
+<ul><li id="panradio351"><input name="radio35" value="true" type="radio">√</li><li id="panradio352"><input name="radio35" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio36">36、  background背景图默认情况下：不平铺	
+</h3>
+<ul><li id="panradio361"><input name="radio36" value="false" type="radio">√</li><li id="panradio362"><input name="radio36" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio37">37、  border：1px solid #0f0意思是设置边框为1像素实线绿色
+</h3>
+<ul><li id="panradio371"><input name="radio37" value="true" type="radio">√</li><li id="panradio372"><input name="radio37" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio38">38、  "margin：3px 5px 4px，是设置左右为5像素，上为3像素，下为4像素"	
+</h3>
+<ul><li id="panradio381"><input name="radio38" value="true" type="radio">√</li><li id="panradio382"><input name="radio38" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio39">39、  background-color属性是用来设置背景图片是否重复显示的
+</h3>
+<ul><li id="panradio391"><input name="radio39" value="false" type="radio">√</li><li id="panradio392"><input name="radio39" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio40">40、  一般来说盒子所占据的空间都要比单纯的内容要大或者相等
+</h3>
+<ul><li id="panradio401"><input name="radio40" value="true" type="radio">√</li><li id="panradio402"><input name="radio40" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio41">41、  background-position的默认值是：0% 0%；
+</h3>
+<ul><li id="panradio411"><input name="radio41" value="true" type="radio">√</li><li id="panradio412"><input name="radio41" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio42">42、  border复合属性包括border-color.	
+</h3>
+<ul><li id="panradio421"><input name="radio42" value="true" type="radio">√</li><li id="panradio422"><input name="radio42" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio43">43、  border-style：solid设置边框线为实线
+</h3>
+<ul><li id="panradio431"><input name="radio43" value="true" type="radio">√</li><li id="panradio432"><input name="radio43" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio44">44、  padding用于控制content与border之间的距离
+</h3>
+<ul><li id="panradio441"><input name="radio44" value="true" type="radio">√</li><li id="panradio442"><input name="radio44" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio45">45、  行内元素和块元素都是padding属性
+</h3>
+<ul><li id="panradio451"><input name="radio45" value="true" type="radio">√</li><li id="panradio452"><input name="radio45" value="false" type="radio">×</li></ul></div>
+</form><form id="formsubmit" action="" method="post" accept-charset="utf-8"><input id="commitButton" value="提交试卷" class="submit" onclick="commit()" type="button"> 
+<div class="hz"><h2>第8单元</h2><p>姓名：<span id="studentname">网页</span></p> 
+<p>总题数：<span id="totalnum">45</span></p> 
+ <p>错题数：<span id="errornum">0</span></p> 
+ <p>正确率：<span id="errorrate">0</span>％</p> 
+ <input id="istudentname" name="studentname" type="hidden">
+<input id="ierrorrate" name="errorrate" type="hidden">
+<input id="iexamunit" name="examunit" type="hidden">
+</div> </form></body></html>

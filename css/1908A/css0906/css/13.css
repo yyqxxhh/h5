@@ -1,0 +1,181 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style: none;
+}
+
+.box {
+	width: 950px;
+	height: 286px;
+	margin: 50px auto;
+	border: #e8e8e8 solid 1px;
+}
+
+.left,
+.center {
+	float: left;
+	width: 306px;
+	height: 260px;
+	margin: 15px 12px 0 20px;
+}
+
+h3 {
+	float: left;
+	width: 56px;
+	height: 22px;
+	font-size: 14px;
+	color: #9d0200;
+	margin-right: 20px;
+	line-height: 22px;
+}
+
+h3 .span-1 {
+	float: left;
+	font-size: 8px;
+	color: #636363;
+	height: 22px;
+	line-height: 22px;
+}
+
+.left dl {
+	clear: left;
+	width: 306px;
+	height: 100px;
+	/*border: #636363 solid 1px;*/
+	margin-top: 15px;
+}
+
+.left dt {
+	float: left;
+}
+
+.left dd {
+	float: right;
+	width: 198px;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.left .span-2 {
+	font-size: 10px;
+}
+
+.left .span-3 {
+	color: #6c786e;
+}
+
+.left ul {
+	margin-bottom: 8px;
+}
+
+.left li {
+	font-size: 10px;
+	line-height: 22px;
+	color: #c30001;
+}
+
+.left a {
+	color: black;
+}
+
+.left .span-4 {
+	float: right;
+	color: #777777;
+}
+
+.box .href {
+	color: #ca0100;
+	font-size: 10px;
+}
+
+.center ul {
+	clear: left;
+	width: 100%;
+	height: 22px;
+	border-bottom: solid 1px #cccccc;
+	margin-top: 12px;
+}
+
+.center li {
+	float: left;
+	width: 42px;
+	line-height: 20px;
+	text-align: center;
+}
+
+.center a {
+	color: black;
+	font-size: 11px;
+}
+
+.center li:hover a {
+	font-size: 13px;
+	color: red;
+}
+
+.center .img-1 {
+	float: left;
+	margin-top: 12px;
+}
+
+.center .img-2 {
+	float: left;
+	margin-top: 12px;
+}
+
+.center p {
+	clear: left;
+	color: #572000;
+	font-size: 10px;
+	line-height: 21px;
+	height: 63px;
+	width: 100%;
+	padding: 12px 0 7px 0;
+}
+
+.right {
+	float: right;
+	width: 240px;
+	height: 260px;
+	margin: 15px 16px 0 0;
+}
+
+.right ul {
+	clear: both;
+	width: 200px;
+	height: 100px;
+}
+
+.right li {
+	color: #9a2c37;
+	line-height: 22px;
+}
+
+.right a {
+	color: black;
+	font-size: 11px;
+}
+
+.gonggao {
+	width: 224px;
+	height: 79px;
+	border: #cccccc solid 1px;
+	margin-top: 10px;
+}
+
+.gonggao .span-5 {
+	float: left;
+	font-size: 14px;
+	padding-left: 4px;
+}
+
+.gonggao p {
+	clear: left;
+	font-size: 15px;
+	text-align: center;
+	height: 36px;
+	line-height: 36px;
+}

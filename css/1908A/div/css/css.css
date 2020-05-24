@@ -1,0 +1,22 @@
+@charset "utf-8";
+input{
+	line-height: 16px;
+	width: 200px;
+	height: 30px;
+}
+p{
+	width: 400px;
+	height: 400px;
+	background-color: gainsboro;
+	border-style: dotted;
+	border-color: red;
+	border-width: 5px;
+}
+dl{
+	width: 300px;
+	height: 350px;
+	border-color: darkgray;
+	border-width: 1px;
+	border-style: solid;
+	
+}

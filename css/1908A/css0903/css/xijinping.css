@@ -1,0 +1,137 @@
+@charset "utf-8";
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+.box{
+	width: 1564px;
+	height: 630px;
+	margin: 0 auto;
+
+}
+
+.box .ul-1{
+	background: #dc2c2e;
+	height: 50px;
+	margin-bottom: 16px;
+}
+.box .ul-1 li{
+	width: 155px;
+	float: left;
+	line-height: 50px;
+	text-align: center;
+	border-left: #b4191b solid 1px;
+}
+.box .ul-1 a{
+	font-size: 14px;
+	color: white;
+}
+.box .ul-1 .li-1{
+	margin-left: 155px;
+}
+.box .ul-1 .li-2{
+	margin-right: 155px;
+	border-right: #b4191b solid 1px;
+}
+.box .ul-2{
+	width: 967px;
+	margin-left: 90px;
+	margin-bottom: 70px;
+	padding:0  25px 0 25px;
+	border-right: #ededed solid 1px;
+}
+.box .ul-2 li{
+	float: left;
+	font-size: 17px;
+	width:130px;
+	text-align: center;
+	border-right: #ededed solid 1px;
+	
+}
+
+.box .ul-2 .li-3{
+	width: 180px;
+}
+
+.box .bottom{
+	width: 1255px;
+	height: 475px;
+	margin: 0 auto;
+	/*border: #B4191B solid 1px;*/
+}
+.box .bottom .left{
+	float: left;
+	width: 810px;
+	height:100%;
+	margin-right: 70px;
+}
+.box .bottom .left h1{
+	font-size: 25px;
+	margin-bottom: 23px;
+}
+.box .bottom .left p{
+	margin-bottom: 30px;
+}
+.box .bottom .left hr{
+	margin-bottom: 30px;
+}
+.box .right{
+	float: left;
+}
+.box .bottom .right .span-1{
+	float: left;
+	width: 175px;
+	height: 50px;
+	background: #ef4444;
+	color: white;
+	text-align: center;
+	line-height: 50px;
+	font-size: 26px;
+	margin-bottom: 22px;
+}
+.box .right .tw{
+	
+	clear: left;
+	width: 370px;
+	height: 140px;
+	/*border: #DC2C2E solid 1px;*/
+}
+.box .right .tw img{
+	/*clear: left;*/
+	float: left;
+	margin-right: 16px;
+
+}
+.box .right .tw ul{
+	float: left;
+}
+.box .right .tw li{
+	color:#a6b8d7 ;
+	line-height: 30px;
+}
+.box .right .tw span{
+	color:#004276 ;
+}
+
+.box .right .ul-3{
+	float: left;
+	
+	color: #ef4344;
+	width: 370px;
+	line-height: 50px;
+	font-size: 18px;
+	
+}
+.box .right .ul-3 li{
+	list-style: square inside;
+}
+.box .right .ul-3 .span-2{
+	color: black;
+}
+
+.box .right .ul-3 .span-3{
+	float: right;
+	color: #b59d9d;
+}

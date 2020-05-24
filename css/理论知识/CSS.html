@@ -1,0 +1,378 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"> <title>测试题</title><style>
+*{ margin:0; padding:0;}img{ border:0;}
+body{ font-family:微软雅黑; font-size:14px; color:#333; padding-left:10px;}
+li{ list-style:none;}
+input{ vertical-align:middle;}
+.title{ line-height:60px; height:60px; color:#000;}
+.item h3{ line-height:40px; font-size:16px; font-weight:normal;}
+.item ul{ line-height:30px; padding-left:26px; font-size:13px;}
+.item ul input{ margin:0 10px 0 0;}
+.submit{ display:block; position:fixed; right:50px; top:50; margin-top:170px; width:100px; height:30px; font-family:微软雅黑; cursor:pointer; font-size:16px;}
+.hz{width:140px;line-height:30px; height:150px; position:fixed;right:10px; top:50;margin-top:15px;color:#cd0000; font-size:16px;}.hz input{border:0;}
+</style><script type="text/javascript" language="javascript"> 
+ 	var allerrornum = 0;
+ 	var totalnum = 0;  
+    var postData = ''; 
+ 	function stop(){ 
+ 		return false; 
+ 	} 
+ 	document.oncontextmenu=stop; 
+ 	function createXmlHttp() { 
+ 	  var xmlHttp = null; 
+ 		 
+ 	  try { 
+ 		//Firefox, Opera 8.0+, Safari 
+ 		xmlHttp = new XMLHttpRequest(); 
+ 	  } catch (e) { 
+ 		//IE 
+ 		try { 
+ 		  xmlHttp = new ActiveXObject('Msxml2.XMLHTTP'); 
+ 		} catch (e) { 
+ 		  xmlHttp = new ActiveXObject('Microsoft.XMLHTTP'); 
+ 		} 
+ 	  } 
+ 		 
+ 	  return xmlHttp; 
+ 	} 
+ 	   
+ 	function submitForm() { 
+ 	  var xmlHttp = createXmlHttp(); 
+ 	  if(!xmlHttp) { 
+ 		alert('您的浏览器不支持AJAX！'); 
+ 		return 0; 
+ 	  } 
+ 	    
+ 	  var url = 'score.cgi'; 
+ 	    
+ 	  xmlHttp.open('POST', url, true); 
+ 	  xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+ 	  xmlHttp.onreadystatechange = function() { 
+ 		if(xmlHttp.readyState == 4 && xmlHttp.status == 200) { 
+ 		  if(xmlHttp.responseText == '1') { 
+ 			alert('post successed'); 
+ 		  } 
+ 		} 
+ 	  } 
+ 	  xmlHttp.send(postData); 
+ 	} 
+ 	function init(){ 
+ 		var spanid; 
+		forms = document.getElementById('form1');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form2');  totalnum+=forms.length/4; 
+ 		forms = document.getElementById('form3');  totalnum+=forms.length/2; 
+ 		spanid = document.getElementById('totalnum');
+ 		spanid.innerHTML = totalnum; 
+ 		spanid = document.getElementById('studentname'); 
+ 		spanid.innerHTML = decodeURI('%E7%BD%91%E9%A1%B5'); 
+ 	} 
+ 	function commit() {  
+ 		var i;  
+ 		var rid;  
+ 		var radios; 
+ 		var checkrightflag;
+ 		var forms = document.getElementById('form1');  
+ 		var errornum = forms.length/4;
+ 		allerrornum = 0;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					rid.style.color = 'black';  
+ 					errornum--;
+ 				}
+ 			}  
+ 		}  
+ 		allerrornum = errornum;
+ 		
+ 		forms = document.getElementById('form2');  
+ 		errornum = forms.length/4;
+ 		for (i=0; i<forms.length/4; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i * 4].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 0;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if( (radios[x].value == 'true' && radios[x].checked == false) || (radios[x].value == 'false' && radios[x].checked == true) ){  
+ 					checkrightflag = 1;
+ 				}
+ 			}  
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		allerrornum = allerrornum + errornum;
+ 
+ 		forms = document.getElementById('form3');  
+ 		errornum = forms.length/2;
+ 		for (i=0; i<forms.length/2; i++) {  
+ 			radios = document.getElementsByName(forms.elements[i*2].name);  
+ 			rid = document.getElementById('text' + radios[0].name);  
+ 			rid.style.color = 'red';  
+ 			checkrightflag = 1;
+ 			for(var x=0; x<radios.length; x++){  
+ 				if(radios[x].checked == true  && radios[x].value == 'true' ){  
+ 					checkrightflag = 0;
+ 				}
+ 			} 
+ 			if(0 == checkrightflag){
+ 				rid.style.color = 'black';  
+ 				errornum--;
+ 			}
+ 		}  
+ 		rid = document.getElementById('errornum');
+ 		allerrornum = allerrornum + errornum;
+ 		rid.innerHTML = allerrornum;
+ 		rid = document.getElementById('errorrate');
+ 		var errrate = 100.0 - (allerrornum * 1.0) / totalnum * 100; 
+		rid.innerHTML = errrate.toFixed(2); 
+ 		document.getElementById('ierrorrate').value = errrate.toFixed(2); 
+ 	  postData = 'studentname=%E7%BD%91%E9%A1%B5'; 
+ 	  postData += '&errorrate='; 
+ 	  postData += errrate.toFixed(2); 
+ 	  postData += '&examunit=6'; 
+ 	  document.getElementById('commitButton').disabled=true; 
+     submitForm();	}   
+ 	window.onload=init;</script></head> 
+ 
+ 
+ <body><noscript><iframe src='*.htm'></noscript><form id="form1" action="" method=""><h2 class="title">单选题:</h2><div class="item"><h3 id="textradio1">1、  如何为一个ID为box的容器中的所有P标签定义样式
+</h3><ul><li id="radio10"><input name="radio1" value="true" type="radio">A #box p{}	
+</li><li id="radio11"><input name="radio1" value="false" type="radio">B #box .p{}	
+</li><li id="radio12"><input name="radio1" value="false" type="radio">C .box p{}	
+</li><li id="radio13"><input name="radio1" value="false" type="radio">D p{}
+</li></ul></div><div class="item"><h3 id="textradio2">2、  以下比元素标签选择器优先级低的选择器有
+</h3><ul><li id="radio20"><input name="radio2" value="false" type="radio">A 包含选择器	
+</li><li id="radio21"><input name="radio2" value="true" type="radio">B 通配符选择器	
+</li><li id="radio22"><input name="radio2" value="false" type="radio">C class选择器	
+</li><li id="radio23"><input name="radio2" value="false" type="radio">D ID选择器
+</li></ul></div><div class="item"><h3 id="textradio3">3、  css内嵌样式用（   ）格式来表示 	
+</h3><ul><li id="radio30"><input name="radio3" value="false" type="radio">A @import 	
+</li><li id="radio31"><input name="radio3" value="false" type="radio">B link 	
+</li><li id="radio32"><input name="radio3" value="false" type="radio">C script	
+</li><li id="radio33"><input name="radio3" value="true" type="radio">D style
+</li></ul></div><div class="item"><h3 id="textradio4">4、  关于样式表的优先级说法错误的是：
+</h3><ul><li id="radio40"><input name="radio4" value="false" type="radio">A 直接定义在标记上的css样式级别最高	
+</li><li id="radio41"><input name="radio4" value="false" type="radio">B 内部样式表次之	
+</li><li id="radio42"><input name="radio4" value="false" type="radio">C 外部样式表级别最低                                        	
+</li><li id="radio43"><input name="radio4" value="true" type="radio">D 当样式中属性重复时，先设的属性起作用
+</li></ul></div><div class="item"><h3 id="textradio5">5、  关于ID选择器下列正确的是	
+</h3><ul><li id="radio50"><input name="radio5" value="true" type="radio">A #main{}	
+</li><li id="radio51"><input name="radio5" value="false" type="radio">B .main{}	
+</li><li id="radio52"><input name="radio5" value="false" type="radio">C .main{}	
+</li><li id="radio53"><input name="radio5" value="false" type="radio">D $main{}
+</li></ul></div><div class="item"><h3 id="textradio6">6、  鼠标经过A标签时修改样式的方法，书写正确的是	
+</h3><ul><li id="radio60"><input name="radio6" value="true" type="radio">A a:hover{}	
+</li><li id="radio61"><input name="radio6" value="false" type="radio">B a:link{}	
+</li><li id="radio62"><input name="radio6" value="false" type="radio">C a:active{}	
+</li><li id="radio63"><input name="radio6" value="false" type="radio">D a:visited{}
+</li></ul></div><div class="item"><h3 id="textradio7">7、  一个页面应用多个样式时，优先级说法正确的是（  ）
+</h3><ul><li id="radio70"><input name="radio7" value="false" type="radio">A class优先级高于id 	
+</li><li id="radio71"><input name="radio7" value="false" type="radio">B 前面的样式覆盖后面的	
+</li><li id="radio72"><input name="radio7" value="true" type="radio">C 指定的高于继承 	
+</li><li id="radio73"><input name="radio7" value="false" type="radio">D 行内样式低于内部或外部样式
+</li></ul></div><div class="item"><h3 id="textradio8">8、  以下是CSS类选择器的是：
+</h3><ul><li id="radio80"><input name="radio8" value="false" type="radio">A box{}	
+</li><li id="radio81"><input name="radio8" value="false" type="radio">B #box{}	
+</li><li id="radio82"><input name="radio8" value="false" type="radio">C a:hover{}	
+</li><li id="radio83"><input name="radio8" value="true" type="radio">D .box{}
+</li></ul></div><div class="item"><h3 id="textradio9">9、  CSS样式优先级最高的是	
+</h3><ul><li id="radio90"><input name="radio9" value="false" type="radio">A 外部样式	
+</li><li id="radio91"><input name="radio9" value="false" type="radio">B 内部样式	
+</li><li id="radio92"><input name="radio9" value="false" type="radio">C 导入样式	
+</li><li id="radio93"><input name="radio9" value="true" type="radio">D 行内样式
+</li></ul></div><div class="item"><h3 id="textradio10">10、  ＜h1＞＜/h1＞里加CSS样式正确的是	
+</h3><ul><li id="radio100"><input name="radio10" value="true" type="radio">A h1{ color:red; width:100px; height:110px;}	
+</li><li id="radio101"><input name="radio10" value="false" type="radio">B .h1{ color:red; width:100px; height:110px;}	
+</li><li id="radio102"><input name="radio10" value="false" type="radio">C #h1{ color:red; width:100px; height:110px;}	
+</li><li id="radio103"><input name="radio10" value="false" type="radio">D !h1{ color:red; width:100px; height:110px;}
+</li></ul></div><div class="item"><h3 id="textradio11">11、  如何给ID为box的元素设置样式
+</h3><ul><li id="radio110"><input name="radio11" value="false" type="radio">A .box{}	
+</li><li id="radio111"><input name="radio11" value="true" type="radio">B #box{}	
+</li><li id="radio112"><input name="radio11" value="false" type="radio">C box{}	
+</li><li id="radio113"><input name="radio11" value="false" type="radio">D :box{}
+</li></ul></div><div class="item"><h3 id="textradio12">12、  CSS类选择器的作用是
+</h3><ul><li id="radio120"><input name="radio12" value="false" type="radio">A 通过元素的ID选择元素	
+</li><li id="radio121"><input name="radio12" value="true" type="radio">B 通过元素中的class属性选择对应元素	
+</li><li id="radio122"><input name="radio12" value="false" type="radio">C 修改class元素	
+</li><li id="radio123"><input name="radio12" value="false" type="radio">D 创建class属性
+</li></ul></div><div class="item"><h3 id="textradio13">13、  下面不属于伪类选择器的是	
+</h3><ul><li id="radio130"><input name="radio13" value="false" type="radio">A a:active{}	
+</li><li id="radio131"><input name="radio13" value="false" type="radio">B a:link{}	
+</li><li id="radio132"><input name="radio13" value="false" type="radio">C a:hover{}	
+</li><li id="radio133"><input name="radio13" value="true" type="radio">D a:viter{}
+</li></ul></div><div class="item"><h3 id="textradio14">14、  设置A标签被点击过后的样式，书写正确的是	
+</h3><ul><li id="radio140"><input name="radio14" value="false" type="radio">A a:hover{}	
+</li><li id="radio141"><input name="radio14" value="false" type="radio">B a:link{}	
+</li><li id="radio142"><input name="radio14" value="false" type="radio">C a:active{}	
+</li><li id="radio143"><input name="radio14" value="true" type="radio">D a:visited{}
+</li></ul></div><div class="item"><h3 id="textradio15">15、  设置A标签未被访问过的样式，书写正确的是
+</h3><ul><li id="radio150"><input name="radio15" value="false" type="radio">A a:hover{}	
+</li><li id="radio151"><input name="radio15" value="true" type="radio">B a:link{}	
+</li><li id="radio152"><input name="radio15" value="false" type="radio">C a:active{}	
+</li><li id="radio153"><input name="radio15" value="false" type="radio">D a:visited{}
+</li></ul></div><div class="item"><h3 id="textradio16">16、  设置A标签被点击过后显示的样式，书写正确的是	
+</h3><ul><li id="radio160"><input name="radio16" value="false" type="radio">A a:hover{}	
+</li><li id="radio161"><input name="radio16" value="false" type="radio">B a:link{}	
+</li><li id="radio162"><input name="radio16" value="false" type="radio">C a:active{}	
+</li><li id="radio163"><input name="radio16" value="true" type="radio">D a:visited{}
+</li></ul></div><div class="item"><h3 id="textradio17">17、  css中的权重，其中ID的权值是 ： 
+</h3><ul><li id="radio170"><input name="radio17" value="false" type="radio">A 1000	
+</li><li id="radio171"><input name="radio17" value="true" type="radio">B 100	
+</li><li id="radio172"><input name="radio17" value="false" type="radio">C 10	
+</li><li id="radio173"><input name="radio17" value="false" type="radio">D 1
+</li></ul></div><div class="item"><h3 id="textradio18">18、  如何只为class名为box的容器中的所有P标签定义样式
+</h3><ul><li id="radio180"><input name="radio18" value="false" type="radio">A #box p{}	
+</li><li id="radio181"><input name="radio18" value="true" type="radio">B .box p{}	
+</li><li id="radio182"><input name="radio18" value="false" type="radio">C .box＞p{}	
+</li><li id="radio183"><input name="radio18" value="false" type="radio">D .box+p{}
+</li></ul></div><div class="item"><h3 id="textradio19">19、  设置A标签未被点击过时显示的样式，书写正确的是
+</h3><ul><li id="radio190"><input name="radio19" value="false" type="radio">A a:hover{}	
+</li><li id="radio191"><input name="radio19" value="true" type="radio">B a:link{}	
+</li><li id="radio192"><input name="radio19" value="false" type="radio">C a:active{}	
+</li><li id="radio193"><input name="radio19" value="false" type="radio">D a:visited{}
+</li></ul></div><div class="item"><h3 id="textradio20">20、  以下是class命名正确 的是：
+</h3><ul><li id="radio200"><input name="radio20" value="true" type="radio">A ＜div class="box"＞＜/div＞	
+</li><li id="radio201"><input name="radio20" value="false" type="radio">B ＜div＞＜/div＞	
+</li><li id="radio202"><input name="radio20" value="false" type="radio">C ＜div id="box"＞＜/div＞ 	
+</li><li id="radio203"><input name="radio20" value="false" type="radio">D ＜div name="box"＞＜/div＞
+</li></ul></div><div class="item"><h3 id="textradio21">21、  如何给class名为box的元素设置样式	
+</h3><ul><li id="radio210"><input name="radio21" value="true" type="radio">A .box{}	
+</li><li id="radio211"><input name="radio21" value="false" type="radio">B #box{}	
+</li><li id="radio212"><input name="radio21" value="false" type="radio">C box{}	
+</li><li id="radio213"><input name="radio21" value="false" type="radio">D :box{}
+</li></ul></div><div class="item"><h3 id="textradio22">22、  CSS的基本概念是：	
+</h3><ul><li id="radio220"><input name="radio22" value="false" type="radio">A css是写网页结构的	
+</li><li id="radio221"><input name="radio22" value="false" type="radio">B css是网页中的动态效果	
+</li><li id="radio222"><input name="radio22" value="true" type="radio">C CSS是层叠样式表(Cascading Style Sheet) ,用于控制网页的外观	
+</li><li id="radio223"><input name="radio22" value="false" type="radio">D css不能用于控制网页的外观
+</li></ul></div><div class="item"><h3 id="textradio23">23、  下面对ID选择器描述错误的是
+</h3><ul><li id="radio230"><input name="radio23" value="false" type="radio">A 通过元素ID选择元素	
+</li><li id="radio231"><input name="radio23" value="false" type="radio">B 一个ID选择器只能锁定一个元素	
+</li><li id="radio232"><input name="radio23" value="false" type="radio">C ID选择器不能创建元素	
+</li><li id="radio233"><input name="radio23" value="true" type="radio">D ID选择器可以更改元素的name属性
+</li></ul></div><div class="item"><h3 id="textradio24">24、  鼠标经过A标签时书写正确的是
+</h3><ul><li id="radio240"><input name="radio24" value="true" type="radio">A a:hover{}	
+</li><li id="radio241"><input name="radio24" value="false" type="radio">B a:link{}	
+</li><li id="radio242"><input name="radio24" value="false" type="radio">C a:active{}	
+</li><li id="radio243"><input name="radio24" value="false" type="radio">D a:visited{}
+</li></ul></div><div class="item"><h3 id="textradio25">25、  通配符选择器:
+</h3><ul><li id="radio250"><input name="radio25" value="true" type="radio">A *{}	
+</li><li id="radio251"><input name="radio25" value="false" type="radio">B {}	
+</li><li id="radio252"><input name="radio25" value="false" type="radio">C !{}	
+</li><li id="radio253"><input name="radio25" value="false" type="radio">D ~{}
+</li></ul></div><div class="item"><h3 id="textradio26">26、  css导入样式用（   ）格式来表示 
+</h3><ul><li id="radio260"><input name="radio26" value="true" type="radio">A @import 	
+</li><li id="radio261"><input name="radio26" value="false" type="radio">B link 	
+</li><li id="radio262"><input name="radio26" value="false" type="radio">C script	
+</li><li id="radio263"><input name="radio26" value="false" type="radio">D style
+</li></ul></div></form><form id="form2" action="" method=""><h2 class="title">多选题:</h2><div class="item"><h3 id="textradio27">27、  "下面对元素选择器描述正确的是"	
+</h3><ul><li id="radio270"><input name="radio27" value="true" type="checkbox">A 通过元素名选择元素	
+</li><li id="radio271"><input name="radio27" value="false" type="checkbox">B 通过元素name属性选择元素	
+</li><li id="radio272"><input name="radio27" value="false" type="checkbox">C 通过元素class属性选择元素	
+</li><li id="radio273"><input name="radio27" value="true" type="checkbox">D 选择div元素的写法是div{}
+</li></ul></div><div class="item"><h3 id="textradio28">28、  下面属于伪类选择器的是	
+</h3><ul><li id="radio280"><input name="radio28" value="true" type="checkbox">A :hover{}	
+</li><li id="radio281"><input name="radio28" value="true" type="checkbox">B :link{}	
+</li><li id="radio282"><input name="radio28" value="true" type="checkbox">C :active{}	
+</li><li id="radio283"><input name="radio28" value="true" type="checkbox">D :visited{}
+</li></ul></div><div class="item"><h3 id="textradio29">29、  以下比元素标签选择器优先级高的选择器有
+</h3><ul><li id="radio290"><input name="radio29" value="false" type="checkbox">A 文本选择器	
+</li><li id="radio291"><input name="radio29" value="false" type="checkbox">B 通配符选择器	
+</li><li id="radio292"><input name="radio29" value="true" type="checkbox">C class选择器	
+</li><li id="radio293"><input name="radio29" value="true" type="checkbox">D ID选择器
+</li></ul></div><div class="item"><h3 id="textradio30">30、  在css中，可以使用的选择器有
+</h3><ul><li id="radio300"><input name="radio30" value="true" type="checkbox">A ID选择器	
+</li><li id="radio301"><input name="radio30" value="true" type="checkbox">B class选择器	
+</li><li id="radio302"><input name="radio30" value="true" type="checkbox">C 包含选择器	
+</li><li id="radio303"><input name="radio30" value="true" type="checkbox">D 伪类选择器
+</li></ul></div><div class="item"><h3 id="textradio31">31、  "＜div class=""text1 text2""＞＜/div＞ 
+<br>.text1{color:red;} .text2{color:blue;}最终div的颜色不可能是 ："	
+</h3><ul><li id="radio310"><input name="radio31" value="true" type="checkbox">A red	
+</li><li id="radio311"><input name="radio31" value="false" type="checkbox">B blue	
+</li><li id="radio312"><input name="radio31" value="true" type="checkbox">C red blue	
+</li><li id="radio313"><input name="radio31" value="true" type="checkbox">D blue red
+</li></ul></div><div class="item"><h3 id="textradio32">32、  web标准中关于表现标准语言描述不正确的是	
+</h3><ul><li id="radio320"><input name="radio32" value="true" type="checkbox">A html	
+</li><li id="radio321"><input name="radio32" value="true" type="checkbox">B dhtml	
+</li><li id="radio322"><input name="radio32" value="true" type="checkbox">C javascript	
+</li><li id="radio323"><input name="radio32" value="false" type="checkbox">D CSS
+</li></ul></div><div class="item"><h3 id="textradio33">33、  下面属于CSS选择器的是	
+</h3><ul><li id="radio330"><input name="radio33" value="true" type="checkbox">A a{width:20px; height:30px;}	
+</li><li id="radio331"><input name="radio33" value="true" type="checkbox">B a:hover{width:20px; height:30px;}	
+</li><li id="radio332"><input name="radio33" value="true" type="checkbox">C .css{}	
+</li><li id="radio333"><input name="radio33" value="false" type="checkbox">D id="a"{}
+</li></ul></div><div class="item"><h3 id="textradio34">34、  CSS 中的选择器包括（  ）	
+</h3><ul><li id="radio340"><input name="radio34" value="false" type="checkbox">A 超文本标记选择器	
+</li><li id="radio341"><input name="radio34" value="true" type="checkbox">B 类选择器
+</li><li id="radio342"><input name="radio34" value="true" type="checkbox">C 标签选择器	
+</li><li id="radio343"><input name="radio34" value="true" type="checkbox">D ID 选择器
+</li></ul></div><div class="item"><h3 id="textradio35">35、  以下不是通配符选择器*的权值： 
+</h3><ul><li id="radio350"><input name="radio35" value="false" type="checkbox">A 0	
+</li><li id="radio351"><input name="radio35" value="true" type="checkbox">B 10	
+</li><li id="radio352"><input name="radio35" value="true" type="checkbox">C 100	
+</li><li id="radio353"><input name="radio35" value="true" type="checkbox">D 1000
+</li></ul></div><div class="item"><h3 id="textradio36">36、  以下链接样式表文件正确的是：	
+</h3><ul><li id="radio360"><input name="radio36" value="true" type="checkbox">A ＜link href="style.css"  rel="stylesheet"  type="text/css" /＞	
+</li><li id="radio361"><input name="radio36" value="false" type="checkbox">B ＜link src="style.css"  rel="stylesheet"  type="text/css" /＞	
+</li><li id="radio362"><input name="radio36" value="false" type="checkbox">C ＜link src="style.css"  rel="stylesheet" /＞	
+</li><li id="radio363"><input name="radio36" value="true" type="checkbox">D ＜link href="style.css"  rel="stylesheet"  /＞
+</li></ul></div></form><form id="form3" action="" method=""><h2 class="title">判断题:</h2><div class="item"><h3 id="textradio37">37、  a:link{color:#f00}可以设置a标签被点击过后文字变成红色
+</h3>
+<ul><li id="panradio371"><input name="radio37" value="false" type="radio">√</li><li id="panradio372"><input name="radio37" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio38">38、  #div{}可以用来为页面中所有的div元素设置样式	
+</h3>
+<ul><li id="panradio381"><input name="radio38" value="false" type="radio">√</li><li id="panradio382"><input name="radio38" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio39">39、  a:hover{color:#f00}可以使鼠标经过a标签时文字变成红色
+</h3>
+<ul><li id="panradio391"><input name="radio39" value="true" type="radio">√</li><li id="panradio392"><input name="radio39" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio40">40、  "设置A标签鼠标滑过效果可以通过a:hover{}来实现"	
+</h3>
+<ul><li id="panradio401"><input name="radio40" value="true" type="radio">√</li><li id="panradio402"><input name="radio40" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio41">41、  h1 a{}可以用来给h1元素中的所有a元素设置样式 
+</h3>
+<ul><li id="panradio411"><input name="radio41" value="true" type="radio">√</li><li id="panradio412"><input name="radio41" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio42">42、  类选择器的权值是10	
+</h3>
+<ul><li id="panradio421"><input name="radio42" value="true" type="radio">√</li><li id="panradio422"><input name="radio42" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio43">43、  "修改页面中所有的A标签样式可以使用元素选择器a{}"
+</h3>
+<ul><li id="panradio431"><input name="radio43" value="true" type="radio">√</li><li id="panradio432"><input name="radio43" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio44">44、  #h1{}可以用来为页面中所有的h1元素设置样式
+</h3>
+<ul><li id="panradio441"><input name="radio44" value="false" type="radio">√</li><li id="panradio442"><input name="radio44" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio45">45、  类选择器的权值大于id选择器	
+</h3>
+<ul><li id="panradio451"><input name="radio45" value="false" type="radio">√</li><li id="panradio452"><input name="radio45" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio46">46、  class定义的样式可以多次调用
+</h3>
+<ul><li id="panradio461"><input name="radio46" value="true" type="radio">√</li><li id="panradio462"><input name="radio46" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio47">47、  id定义的样式只能调用一次	
+</h3>
+<ul><li id="panradio471"><input name="radio47" value="true" type="radio">√</li><li id="panradio472"><input name="radio47" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio48">48、  a超级链接的四个状态顺序可以对换，不影响显示效果 
+</h3>
+<ul><li id="panradio481"><input name="radio48" value="false" type="radio">√</li><li id="panradio482"><input name="radio48" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio49">49、  伪类选择器可以选择元素ID	
+</h3>
+<ul><li id="panradio491"><input name="radio49" value="false" type="radio">√</li><li id="panradio492"><input name="radio49" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio50">50、  "设置A标签访问后效果可以通过a:link {}来实现"
+</h3>
+<ul><li id="panradio501"><input name="radio50" value="false" type="radio">√</li><li id="panradio502"><input name="radio50" value="true" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio51">51、  div a{}可以用来给div元素中的所有a元素设置样式 	
+</h3>
+<ul><li id="panradio511"><input name="radio51" value="true" type="radio">√</li><li id="panradio512"><input name="radio51" value="false" type="radio">×</li></ul></div>
+<div class="item"><h3 id="textradio52">52、  a{}可以用来为页面中所有的a标签设置CSS样式
+</h3>
+<ul><li id="panradio521"><input name="radio52" value="true" type="radio">√</li><li id="panradio522"><input name="radio52" value="false" type="radio">×</li></ul></div>
+</form><form id="formsubmit" action="" method="post" accept-charset="utf-8"><input id="commitButton" value="提交试卷" class="submit" onclick="commit()" type="button"> 
+<div class="hz"><h2>第6单元</h2><p>姓名：<span id="studentname">网页</span></p> 
+<p>总题数：<span id="totalnum">52</span></p> 
+ <p>错题数：<span id="errornum">0</span></p> 
+ <p>正确率：<span id="errorrate">0</span>％</p> 
+ <input id="istudentname" name="studentname" type="hidden">
+<input id="ierrorrate" name="errorrate" type="hidden">
+<input id="iexamunit" name="examunit" type="hidden">
+</div> </form></body></html>

@@ -1,0 +1,23 @@
+@charset "utf-8";
+h3{
+	background-color:#eeeeee ;
+	color: #6079b2;
+	text-align: center;
+}
+
+#font-b{
+	color: orange;
+	font-weight: bolder;
+}
+#li-org{
+	color: orange;
+}
+.li-blue{
+	color: #6079b2;
+}
+#font-i{
+	font-style: italic;
+}
+p{
+	text-indent: 2em;
+}
